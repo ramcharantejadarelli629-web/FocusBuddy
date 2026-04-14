@@ -1,0 +1,5071 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>FocusBuddy Pro 4.0</title>
+
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #5b4ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+/* LOGIN PAGE */
+
+#loginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#loginPage h1 {
+  color: white;
+  margin-bottom: 30px;
+  font-size: 48px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  animation: slideDown 0.6s ease;
+}
+
+#loginPage .form-container {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  animation: fadeIn 0.6s ease;
+}
+
+#loginPage input {
+  padding: 12px 15px;
+  margin: 10px 0;
+  width: 280px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+#loginPage input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+#loginPage button {
+  width: 280px;
+  padding: 12px;
+  margin: 10px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#loginPage button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.password-strength {
+  font-size: 12px;
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.strength-weak {
+  background: #ffcccc;
+  color: #cc0000;
+}
+
+.strength-medium {
+  background: #ffffcc;
+  color: #ff9900;
+}
+
+.strength-strong {
+  background: #ccffcc;
+  color: #009900;
+}
+
+/* MAIN APP */
+
+#app {
+  padding-bottom: 90px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* NAVBAR */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar span {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.topbar button {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.topbar button:hover {
+  background: rgba(255,255,255,0.3);
+  transform: scale(1.05);
+}
+
+/* PAGES */
+
+.page {
+  display: none;
+  padding: 30px 20px;
+  background: white;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  animation: fadeIn 0.4s ease;
+}
+
+.page h2 {
+  color: #667eea;
+  margin-bottom: 25px;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.page h3 {
+  color: #764ba2;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.active {
+  display: block;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.card p {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px 0 0 0;
+}
+
+/* ACHIEVEMENTS */
+
+.achievements {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+.achievement {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid #ddd;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.achievement:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.achievement.unlocked {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border-color: #ffa500;
+}
+
+.achievement-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.achievement-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.achievement-category {
+  margin-bottom: 25px;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.achievement-progress {
+  margin-top: 8px;
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.achievement-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.achievement-progress-bar.unlocked {
+  background: linear-gradient(90deg, #ffd700, #ffa500);
+}
+
+.achievement-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #51cf66;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.achievement {
+  position: relative;
+}
+
+/* TASK MANAGEMENT */
+
+.task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.task-form input,
+.task-form select {
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.task-form input:focus,
+.task-form select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.task-form button {
+  padding: 10px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.task-form button:hover {
+  background: #764ba2;
+  transform: translateY(-2px);
+}
+
+.task-list {
+  list-style: none;
+}
+
+.task-item {
+  background: #f8f9fa;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.task-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.task-item.high-priority {
+  border-left-color: #ff6b6b;
+  background: #ffe6e6;
+}
+
+.task-item.medium-priority {
+  border-left-color: #ffa500;
+  background: #fff5e6;
+}
+
+.task-item.low-priority {
+  border-left-color: #51cf66;
+  background: #e6ffe6;
+}
+
+.task-item.completed {
+  opacity: 0.6;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+}
+
+.task-text {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.task-text .priority-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: white;
+}
+
+.priority-badge.high {
+  background: #ff6b6b;
+}
+
+.priority-badge.medium {
+  background: #ffa500;
+}
+
+.priority-badge.low {
+  background: #51cf66;
+}
+
+.task-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.task-btn {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.task-btn.complete {
+  background: #51cf66;
+  color: white;
+}
+
+.task-btn.complete:disabled {
+  background: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.task-btn.edit {
+  background: #667eea;
+  color: white;
+}
+
+.task-btn.delete {
+  background: #ff6b6b;
+  color: white;
+}
+
+.task-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+/* TIMER */
+
+#timerContainer {
+  text-align: center;
+}
+
+.timer-presets {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.preset-btn {
+  padding: 12px 20px;
+  background: #f0f0f0;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.preset-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: scale(1.05);
+}
+
+.preset-btn.active {
+  background: #667eea;
+  color: white;
+}
+
+#timer {
+  font-size: 72px;
+  font-weight: bold;
+  color: #667eea;
+  margin: 30px 0;
+  font-family: 'Courier New', monospace;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.timer-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.timer-btn {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.play-btn {
+  background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+  color: white;
+}
+
+.pause-btn {
+  background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
+  color: white;
+}
+
+.stop-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+  color: white;
+}
+
+.timer-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* LEADERBOARD */
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard-table th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: bold;
+}
+
+.leaderboard-table tr:hover {
+  background: #f5f5f5;
+}
+
+.leaderboard-table tr:nth-child(1) {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+}
+
+.leaderboard-table tr:nth-child(2) {
+  background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+}
+
+.leaderboard-table tr:nth-child(3) {
+  background: linear-gradient(135deg, #cd7f32 0%, #e6b382 100%);
+}
+
+.medal {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+/* GOALS */
+
+.goal-form {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.goal-form input,
+.goal-form select {
+  padding: 10px;
+  margin: 10px 5px 10px 0;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+}
+
+.goal-form button {
+  padding: 10px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.goal-form button:hover {
+  background: #764ba2;
+}
+
+.goal-item {
+  background: white;
+  border: 2px solid #ddd;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+  border-left: 5px solid #667eea;
+}
+
+.goal-progress {
+  background: #f0f0f0;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.goal-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* STATISTICS */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.stat-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 14px;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+/* BOTTOM NAV */
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.bottomNav button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 15px 10px;
+  cursor: pointer;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.bottomNav button:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+}
+
+.bottomNav button.active {
+  background: rgba(255,255,255,0.3);
+  border-top: 3px solid white;
+}
+
+/* AI TOOLS */
+
+.ai-tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.ai-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.ai-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  border-color: white;
+}
+
+/* MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999 !important;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  animation: fadeIn 0.3s ease;
+  overflow-y: auto;
+  backdrop-filter: blur(4px);
+}
+
+.modal.show {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  color: #667eea;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  color: #764ba2;
+  transform: scale(1.2);
+}
+
+body.dark-mode .modal-content {
+  background: #16213e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .modal-close {
+  color: #64b5f6;
+}
+
+body.dark-mode .modal-close:hover {
+  color: #90caf9;
+}
+
+/* STATS TABS */
+
+.stats-tabs {
+  width: 100%;
+}
+
+.tab-buttons {
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: #e0e0e0;
+  color: #666;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.tab-btn:hover {
+  background: #d0d0d0;
+}
+
+.tab-btn.active:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+.stats-content {
+  display: none;
+}
+
+.stats-content.active {
+  display: block;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 15px 0;
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+}
+
+.stat-card.large {
+  padding: 30px;
+}
+
+.stat-card .stat-value {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-card .stat-label {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.comparison {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.comparison-label {
+  font-weight: bold;
+  color: #666;
+}
+
+.comparison-value.positive {
+  color: #51cf66;
+  font-weight: bold;
+}
+
+.comparison-value.negative {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.comparison-value.neutral {
+  color: #666;
+}
+
+.daily-breakdown {
+  margin-top: 20px;
+}
+
+.daily-breakdown h4 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 16px;
+}
+
+.daily-item {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.daily-item.today {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.daily-item span:first-child {
+  width: 50px;
+  font-weight: bold;
+}
+
+.daily-bar {
+  flex: 1;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  margin: 0 10px;
+  overflow: hidden;
+}
+
+.daily-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 4px;
+}
+
+.daily-item.today .daily-fill {
+  background: rgba(255,255,255,0.8);
+}
+
+.daily-item span:last-child {
+  width: 40px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.weekly-details {
+  margin-top: 20px;
+}
+
+.weekly-item {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.weekly-day {
+  width: 100px;
+  font-weight: bold;
+  color: #333;
+}
+
+.weekly-bar {
+  flex: 1;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  margin: 0 15px;
+  overflow: hidden;
+}
+
+.weekly-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+.weekly-minutes {
+  width: 50px;
+  text-align: right;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.monthly-comparison {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.comparison-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.monthly-goals {
+  margin-top: 25px;
+}
+
+.monthly-goals h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.goal-item span:first-child {
+  width: 120px;
+  font-weight: bold;
+  color: #666;
+}
+
+.goal-bar {
+  flex: 1;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  margin: 0 15px;
+  overflow: hidden;
+}
+
+.goal-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #51cf66, #37b24d);
+  border-radius: 5px;
+}
+
+.goal-item span:last-child {
+  width: 50px;
+  text-align: right;
+  font-weight: bold;
+  color: #51cf66;
+}
+
+/* ENHANCED STATS STYLES */
+
+.daily-overview, .weekly-overview, .monthly-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.activity-summary {
+  margin-top: 25px;
+}
+
+.activity-summary h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.activity-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.weekly-breakdown {
+  margin-top: 25px;
+}
+
+.weekly-breakdown h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.weekly-item {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.weekly-day {
+  width: 100px;
+  font-weight: bold;
+  color: #333;
+}
+
+.weekly-bar {
+  flex: 1;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  margin: 0 15px;
+  overflow: hidden;
+}
+
+.weekly-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+.weekly-details {
+  width: 120px;
+  text-align: right;
+}
+
+.weekly-minutes {
+  font-weight: bold;
+  color: #667eea;
+  font-size: 16px;
+}
+
+.weekly-sessions {
+  font-size: 12px;
+  color: #666;
+}
+
+.weekly-goals, .monthly-goals {
+  margin-top: 25px;
+}
+
+.weekly-goals h4, .monthly-goals h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.goal-progress {
+  display: grid;
+  gap: 15px;
+}
+
+.weekly-insights {
+  margin-top: 25px;
+}
+
+.weekly-insights h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.insights-list {
+  display: grid;
+  gap: 10px;
+}
+
+.insight-item {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.insight-icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.monthly-breakdown {
+  margin-top: 25px;
+}
+
+.monthly-breakdown h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.monthly-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.monthly-stat {
+  display: flex;
+  justify-content: space-between;
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.monthly-stat span:first-child {
+  color: #666;
+}
+
+.monthly-stat span:last-child {
+  color: #667eea;
+}
+
+/* ACHIEVEMENT BADGES & CERTIFICATES */
+
+.achievement-badge-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.badge-certificate {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.badge-certificate::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+  border-radius: 25px;
+  z-index: -1;
+}
+
+.certificate-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.certificate-icon {
+  font-size: 60px;
+  margin: 20px 0;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+}
+
+.certificate-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 15px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.certificate-desc {
+  font-size: 16px;
+  margin: 15px 0;
+  opacity: 0.9;
+}
+
+.certificate-stats {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.certificate-stat {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.certificate-footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(255,255,255,0.3);
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.achievement-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  z-index: 10001;
+  max-width: 300px;
+  animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.achievement-notification-icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.achievement-notification-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.achievement-notification-desc {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* TELUGU SONGS STYLES */
+
+.telugu-song-item:hover {
+  background: #e3f2fd !important;
+  border-color: #667eea !important;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* NOTIFICATIONS */
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #667eea;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  animation: slideDown 0.3s ease;
+  z-index: 3000;
+  max-width: 300px;
+}
+
+.notification.success {
+  background: #51cf66;
+}
+
+.notification.error {
+  background: #ff6b6b;
+}
+
+.notification.info {
+  background: #667eea;
+}
+
+/* DARK MODE */
+
+body.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+body.dark-mode #app {
+  background: #0f3460;
+}
+
+body.dark-mode .topbar {
+  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+}
+
+body.dark-mode .page {
+  background: #16213e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .page h2,
+body.dark-mode .page h3 {
+  color: #64b5f6;
+}
+
+body.dark-mode .card {
+  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+  color: #e0e0e0;
+}
+
+body.dark-mode .achievement {
+  background: #1a1a2e;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .task-item {
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .task-form input,
+body.dark-mode .task-form select {
+  background: #0f3460;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .goal-item {
+  background: #1a1a2e;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .stat-box {
+  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+}
+
+body.dark-mode .leaderboard-table th {
+  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+}
+
+body.dark-mode .leaderboard-table td {
+  border-color: #333;
+}
+
+body.dark-mode .leaderboard-table tr:hover {
+  background: #1a1a2e;
+}
+
+body.dark-mode .modal-content {
+  background: #16213e;
+  color: #e0e0e0;
+}
+
+body.dark-mode #strengthIndicator {
+  color: #e0e0e0;
+}
+
+body.dark-mode .ai-card {
+  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+}
+
+/* TASK FILTERING */
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 15px;
+  background: #f0f0f0;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+body.dark-mode .filter-btn {
+  background: #1a1a2e;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .filter-btn.active {
+  background: #667eea;
+  color: white;
+}
+
+/* SESSION HISTORY */
+
+.session-item {
+  background: #f8f9fa;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border-left: 4px solid #667eea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.dark-mode .session-item {
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+/* APP BLOCKER */
+
+.app-blocker-toggle {
+  background: white;
+  border: 2px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.app-blocker-toggle:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.app-blocker-toggle.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+body.dark-mode .app-blocker-toggle {
+  background: #1a1a2e;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .app-blocker-toggle.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  #timer {
+    font-size: 48px;
+  }
+  
+  .task-form {
+    flex-direction: column;
+  }
+  
+  .task-form input,
+  .task-form select,
+  .task-form button {
+    width: 100%;
+  }
+  
+  .page {
+    margin: 10px;
+    padding: 20px 15px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginPage">
+  <div class="form-container">
+    <h1>📘 FocusBuddy Pro</h1>
+    <p style="text-align: center; color: #999; margin: 10px 0 20px 0;">Professional Study & Focus App</p>
+    
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <h2 style="text-align: center; margin-bottom: 20px;">🔓 Login</h2>
+      <input id="loginUsername" placeholder="Username" style="margin: 10px 0;">
+      <input id="loginPassword" type="password" placeholder="Password" style="margin: 10px 0;">
+      <button onclick="login()" style="margin: 10px 0; background: linear-gradient(135deg, #667eea, #764ba2);">Login</button>
+      <p style="text-align: center; font-size: 12px; color: #667eea; cursor: pointer;" onclick="showRecoveryForm()">🔑 Forgot Password?</p>
+      <p style="text-align: center; font-size: 12px; color: #666; margin-top: 10px;">
+        New user? <span style="color: #667eea; cursor: pointer; font-weight: bold;" onclick="showSignupForm()">Create Account</span>
+      </p>
+    </div>
+    
+    <!-- SIGNUP FORM (STEP BY STEP) -->
+    <div id="signupForm" style="display: none;">
+      <h2 style="text-align: center; margin-bottom: 20px;">🆕 Create Account</h2>
+      <p style="text-align: center; font-size: 12px; color: #999; margin-bottom: 20px;">Follow the steps to create your account</p>
+      
+      <!-- STEP 1: Username/Email -->
+      <div id="signupStep1" style="display: block;">
+        <input id="signupUsername" placeholder="Enter Username or Email" style="margin: 10px 0;">
+        <button onclick="proceedToStep2()" style="margin: 10px 0; background: linear-gradient(135deg, #51cf66, #37b24d);">Next</button>
+      </div>
+      
+      <!-- STEP 2: Password -->
+      <div id="signupStep2" style="display: none;">
+        <p style="text-align: center; color: #667eea; font-weight: bold; margin-bottom: 15px;" id="signupDisplayName"></p>
+        <input id="signupPassword" type="password" placeholder="Create Password (min 6 chars)" onkeyup="checkPasswordStrength(this.value)" style="margin: 10px 0;">
+        <div id="strengthIndicator"></div>
+        <button onclick="proceedToStep3()" style="margin: 10px 0; background: linear-gradient(135deg, #51cf66, #37b24d);">Next</button>
+        <button onclick="backToStep1()" style="margin: 10px 0; background: #999; color: white;">Back</button>
+      </div>
+      
+      <!-- STEP 3: Confirm Password -->
+      <div id="signupStep3" style="display: none;">
+        <input id="signupPasswordConfirm" type="password" placeholder="Confirm Password" style="margin: 10px 0;">
+        <button onclick="completeSignup()" style="margin: 10px 0; background: linear-gradient(135deg, #51cf66, #37b24d);">Create Account</button>
+        <button onclick="backToStep2()" style="margin: 10px 0; background: #999; color: white;">Back</button>
+      </div>
+      
+      <p style="text-align: center; font-size: 12px; color: #666; margin-top: 10px;">
+        Already have account? <span style="color: #667eea; cursor: pointer; font-weight: bold;" onclick="showLoginForm()">Login Here</span>
+      </p>
+    </div>
+    
+    <!-- PASSWORD RECOVERY FORM -->
+    <div id="recoverForm" style="display: none;">
+      <h2 style="text-align: center; margin-bottom: 20px;">🔑 Recover Password</h2>
+      <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 15px;">Enter your username and email to recover your account</p>
+      <input id="recoverUsername" placeholder="Your Username" style="margin: 10px 0;">
+      <input id="recoverEmail" type="email" placeholder="Your Email Address" style="margin: 10px 0;">
+      <button onclick="recoverPassword()" style="margin: 10px 0; background: linear-gradient(135deg, #ff9999, #ff6b6b);">Recover Password</button>
+      <p style="text-align: center; font-size: 12px; color: #666; margin-top: 10px;">
+        Remember password? <span style="color: #667eea; cursor: pointer; font-weight: bold;" onclick="showLoginForm()">Back to Login</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+
+<div id="app" style="display:none">
+
+<div class="topbar">
+  <span>📘 FocusBuddy Pro</span>
+  <div>
+    <span id="userGreeting" style="margin-right: 20px;"></span>
+    <button onclick="toggleDarkMode()" title="Toggle Dark Mode" style="margin-right: 10px;">🌙</button>
+    <button onclick="logout()">🚪 Logout</button>
+  </div>
+</div>
+
+<!-- HOME / DASHBOARD -->
+
+<div id="home" class="page active">
+
+<h2>📊 Dashboard</h2>
+
+<div class="dashboard">
+  <div class="card" onclick="showStreakDetails()">
+    <span>🔥 Streak</span>
+    <p id="streak">0</p>
+    <span style="font-size: 12px; color: rgba(255,255,255,0.8);">Click for details</span>
+  </div>
+  <div class="card" onclick="showTimeDetails()">
+    <span>📚 Study Time</span>
+    <p id="time">0 hrs</p>
+    <span style="font-size: 12px; color: rgba(255,255,255,0.8);">Click for details</span>
+  </div>
+  <div class="card" onclick="showPointsDetails()">
+    <span>🏅 Points</span>
+    <p id="points">0</p>
+    <span style="font-size: 12px; color: rgba(255,255,255,0.8);">Click for details</span>
+  </div>
+  <div class="card" onclick="showTasksDetails()">
+    <span>🎯 Completed Tasks</span>
+    <p id="tasks">0</p>
+    <span style="font-size: 12px; color: rgba(255,255,255,0.8);">Click for details</span>
+  </div>
+  <div class="card" onclick="showStudyRewards()" style="background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); color: #333;">
+    <span>🎁 Daily Rewards</span>
+    <p id="rewardsStatus" style="color: #333;">Click</p>
+    <span style="font-size: 12px; color: rgba(51,51,51,0.8);">Earn more by studying!</span>
+  </div>
+</div>
+
+<h3>🏆 Achievements</h3>
+<div class="achievements" id="achievementsList"></div>
+
+<h3>📈 This Week Stats</h3>
+<div class="stats-grid" id="weeklyStats"></div>
+
+</div>
+
+<!-- STUDY TIMER -->
+
+<div id="study" class="page">
+
+<h2>⏱ Study Timer</h2>
+
+<div id="timerContainer">
+  <h3>Timer Presets</h3>
+  <div class="timer-presets">
+    <button class="preset-btn" onclick="setTimer(25)">Pomodoro (25m)</button>
+    <button class="preset-btn" onclick="setTimer(45)">Deep Focus (45m)</button>
+    <button class="preset-btn" onclick="setTimer(90)">Extended (90m)</button>
+    <button class="preset-btn active" id="customPreset">Custom</button>
+  </div>
+  
+  <input type="number" id="minutes" placeholder="Enter minutes" value="25" min="1" max="180">
+  
+  <h1 id="timer">25:00</h1>
+  
+  <div class="timer-controls">
+    <button class="timer-btn play-btn" onclick="startTimer()">▶ Start</button>
+    <button class="timer-btn pause-btn" onclick="pauseTimer()">⏸ Pause</button>
+    <button class="timer-btn stop-btn" onclick="stopTimer()">⏹ Stop</button>
+  </div>
+  
+  <h3 style="margin-top: 30px;">☕ Break Timer</h3>
+  <div>
+    <input type="number" id="breakMinutes" placeholder="Break minutes" value="5" min="1" max="60" style="padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 14px; width: 150px;">
+    <button onclick="startBreakTimer()" style="margin-left: 10px; padding: 10px 20px; background: #764ba2; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Start Break</button>
+  </div>
+  <p id="breakStatus" style="margin-top: 10px; color: #999; font-size: 14px;"></p>
+  
+  <h3 style="margin-top: 30px;">� Music & Ambient Sounds</h3>
+<div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+  <label for="musicCategory" style="font-weight: bold; display: block; margin-bottom: 8px;">Choose Music Category:</label>
+  <select id="musicCategory" onchange="loadMusicPlaylist()" style="padding: 10px; border: 2px solid #ddd; border-radius: 6px; width: 100%; font-size: 14px;">
+    <option value="focus">🎵 Focus & Study Music</option>
+    <option value="user_focus_music">🎵 Your Custom Focus Music</option>
+    <option value="custom">🎵 Add Custom Music URL</option>
+    <option value="telugu_playlist">🎵 Telugu Study Songs</option>
+    <option value="telugu_love">💕 Telugu Love Songs</option>
+    <option value="romantic">💖 Romantic Vibes</option>
+    <option value="lofibeats">🎧 Lo-Fi Beats</option>
+    <option value="classical">🎹 Classical Music</option>
+    <option value="ambient">🌌 Ambient Sounds</option>
+  </select>
+</div>
+
+<!-- Custom Music URL Input -->
+<div id="customMusicSection" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+  <label for="customMusicUrl" style="font-weight: bold; display: block; margin-bottom: 8px;">Enter YouTube Video URL:</label>
+  <input type="url" id="customMusicUrl" placeholder="https://www.youtube.com/watch?v=VIDEO_ID" style="padding: 10px; border: 2px solid #ddd; border-radius: 6px; width: 100%; font-size: 14px; margin-bottom: 10px;">
+  <button onclick="saveCustomMusic()" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Save Custom Music</button>
+  <p style="font-size: 12px; color: #666; margin-top: 8px;">💡 Paste any YouTube video URL for your personal study music</p>
+</div>
+
+<div style="background: white; padding: 15px; border-radius: 10px; border: 2px solid #ddd; margin-bottom: 15px;">
+  <p style="text-align: center; margin-bottom: 10px; font-weight: bold;">🎵 Now Available</p>
+  <p id="currentMusicInfo" style="text-align: center; color: #667eea; font-size: 14px; margin: 10px 0; font-weight: bold;"></p>
+</div>
+
+<div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+  <button onclick="playYouTubeMusic()" style="padding: 10px 20px; background: #51cf66; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 1; min-width: 120px;">▶ Play on YouTube</button>
+  <button onclick="openMusicPortal()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 1; min-width: 120px;">🎵 Browse More</button>
+</div>
+
+<!-- Music Volume Control -->
+<div style="background: white; padding: 15px; border-radius: 10px; border: 2px solid #ddd; margin-bottom: 15px;">
+  <label for="musicVolume" style="font-weight: bold; display: block; margin-bottom: 8px;">Music Volume: <span id="volumeDisplay">50%</span></label>
+  <input type="range" id="musicVolume" min="0" max="100" value="50" onchange="updateMusicVolume()" style="width: 100%; height: 6px; border-radius: 3px; background: #ddd; outline: none;">
+  <div style="display: flex; justify-content: space-between; font-size: 12px; color: #666; margin-top: 5px;">
+    <span>🔇 Mute</span>
+    <span>🔊 Max</span>
+  </div>
+</div>
+
+<!-- Telugu Songs Selection -->
+<div id="teluguSongsSection" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+  <h4 style="margin-bottom: 15px; color: #667eea;">🎵 Select Telugu Song:</h4>
+  <div id="teluguSongsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+    <!-- Songs will be populated here -->
+  </div>
+</div>
+
+  <h3 style="margin-top: 30px;">📊 Today's Sessions</h3>
+  <div id="sessionsToday" style="margin-top: 10px;"></div>
+</div>
+
+</div>
+
+<!-- PLANNER / TASKS -->
+
+<div id="planner" class="page">
+
+<h2>📅 Study Planner</h2>
+
+<div class="task-form">
+  <input id="taskInput" placeholder="Enter your task...">
+  <select id="taskCategory">
+    <option value="homework">📝 Homework</option>
+    <option value="reading">📚 Reading</option>
+    <option value="project">🎯 Project</option>
+    <option value="revision">🔄 Revision</option>
+    <option value="other">➕ Other</option>
+  </select>
+  <select id="prioritySelect">
+    <option value="low">🟢 Low Priority</option>
+    <option value="medium" selected>🟡 Medium Priority</option>
+    <option value="high">🔴 High Priority</option>
+  </select>
+  <input id="taskDueDate" type="date" placeholder="Due date">
+  <button onclick="addTask()">➕ Add Task</button>
+</div>
+
+<h3>Filter Tasks</h3>
+<div class="filter-buttons">
+  <button class="filter-btn active" onclick="filterTasks('all')">All</button>
+  <button class="filter-btn" onclick="filterTasks('📝 Homework')">📝 Homework</button>
+  <button class="filter-btn" onclick="filterTasks('📚 Reading')">📚 Reading</button>
+  <button class="filter-btn" onclick="filterTasks('🎯 Project')">🎯 Project</button>
+  <button class="filter-btn" onclick="filterTasks('🔄 Revision')">🔄 Revision</button>
+  <button class="filter-btn" onclick="filterTasks('overdue')">⏰ Overdue</button>
+</div>
+
+<ul class="task-list" id="taskList"></ul>
+
+</div>
+
+<!-- GOALS -->
+
+<div id="goals" class="page">
+
+<h2>🎯 Study Goals</h2>
+
+<div class="goal-form">
+  <h3>Set a New Goal</h3>
+  <input id="goalInput" placeholder="Goal description (e.g., Read 5 chapters)">
+  <select id="goalTarget">
+    <option value="30">30 minutes</option>
+    <option value="60">1 hour</option>
+    <option value="120">2 hours</option>
+    <option value="240">4 hours</option>
+  </select>
+  <button onclick="addGoal()">➕ Create Goal</button>
+</div>
+
+<div id="goalsList"></div>
+
+</div>
+
+<!-- STATISTICS -->
+
+<div id="stats" class="page">
+
+<h2>📊 Statistics & Leaderboard</h2>
+
+<div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+  <button onclick="showPerformanceAnalytics()" style="padding: 12px 20px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 1; min-width: 150px;">📈 View Analytics</button>
+  <button onclick="showWeeklyStatsDetail()" style="padding: 12px 20px; background: linear-gradient(135deg, #51cf66, #37b24d); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 1; min-width: 150px;">📅 Weekly Report</button>
+  <button onclick="showDailyMotivation()" style="padding: 12px 20px; background: linear-gradient(135deg, #ff9999, #ff6b6b); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 1; min-width: 150px;">💪 Motivation</button>
+</div>
+
+<h3>Your Statistics</h3>
+<div class="stats-grid" id="myStats"></div>
+
+<h3>🏆 Leaderboard</h3>
+<table class="leaderboard-table">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>User</th>
+      <th>Study Time</th>
+      <th>Streak</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody id="leaderboard">
+  </tbody>
+</table>
+
+<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: center;">
+  <h3>⌨️ Keyboard Shortcuts</h3>
+  <p style="font-size: 13px; margin: 5px 0;"><strong>Alt+S</strong> - Start/Stop Timer | <strong>Alt+P</strong> - Pause | <strong>Alt+F</strong> - Focus Mode | <strong>Alt+M</strong> - Music</p>
+</div>
+
+</div>
+
+<!-- AI TOOLS -->
+
+<div id="ai" class="page">
+
+<h2>🤖 AI Study Tools</h2>
+
+<p>Click any AI tool to open it in a new window:</p>
+
+<div class="ai-tools">
+  <div class="ai-card" onclick="openAI('https://chat.openai.com')">💬 ChatGPT</div>
+  <div class="ai-card" onclick="openAI('https://gemini.google.com')">✨ Gemini</div>
+  <div class="ai-card" onclick="openAI('https://www.blackbox.ai')">📦 Blackbox</div>
+  <div class="ai-card" onclick="openAI('https://grok.x.ai')">🤖 Grok</div>
+  <div class="ai-card" onclick="openAI('https://perplexity.ai')">🔍 Perplexity</div>
+  <div class="ai-card" onclick="openAI('https://claude.ai')">🧠 Claude</div>
+  <div class="ai-card" onclick="openAI('https://copilot.microsoft.com')">⚡ Copilot</div>
+  <div class="ai-card" onclick="openAI('https://www.youtube.com/results?search_query=study+tips')">📺 YouTube Tutorials</div>
+</div>
+
+</div>
+
+<!-- FOCUS MODE & MEDIA BLOCKER -->
+
+<div id="focus" class="page">
+
+<h2>🎵 Focus Mode & App Blocker</h2>
+
+<h3>🎵 Music & Ambient Sounds</h3>
+<div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+  <div style="margin-bottom: 15px;">
+    <label for="musicPreference" style="font-weight: bold; display: block; margin-bottom: 8px;">Select Focus Environment:</label>
+    <select id="musicPreference" style="padding: 10px; border: 2px solid #ddd; border-radius: 6px; width: 100%; max-width: 400px;" onchange="changeMediaPreference()">
+      <option value="silence">🔇 Silence</option>
+      <option value="focus" selected>🎵 Focus Music</option>
+      <option value="rain">🌧️ Rain Sounds</option>
+      <option value="forest">🌲 Forest Ambience</option>
+      <option value="coffee">☕ Coffee Shop</option>
+      <option value="ocean">🌊 Ocean Waves</option>
+      <option value="fireplace">🔥 Fireplace Crackle</option>
+      <option value="birds">🐦 Bird Songs</option>
+    </select>
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <label for="musicVolume" style="font-weight: bold; display: block; margin-bottom: 8px;">Volume: <span id="volumeValue">50</span>%</label>
+    <input type="range" id="musicVolume" min="0" max="100" value="50" onchange="updateMusicVolume()" style="width: 100%; cursor: pointer;">
+  </div>
+
+  <audio id="ambientAudio" controls loop style="width: 100%; margin-bottom: 15px;">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f46b2bfa5.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="playBtn" onclick="toggleMusic()" style="padding: 10px 20px; background: #51cf66; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-right: 10px;">▶ Play</button>
+  <button onclick="stopMusic()" style="padding: 10px 20px; background: #ff6b6b; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">⏹ Stop</button>
+</div>
+
+<h3 style="margin-top: 30px;">📱 Social Media Blocker</h3>
+<p style="color: #666; margin-bottom: 15px;">🔒 <strong>Real Blocking Active:</strong> When Focus Mode is ON, attempting to access blocked apps will show a warning and prevent you from wasting time. Your apps are ACTUALLY blocked!</p>
+
+<div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ffc107;">
+  <p style="margin: 0; color: #856404; font-size: 13px;">
+    ⚠️ <strong>How Blocking Works:</strong> The blocker monitors your browser activity. If you try to navigate to a blocked site, you'll get an instant warning and the navigation will be blocked. Your Focus is protected!
+  </p>
+</div>
+
+<div id="appBlockerList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;"></div>
+
+<h3>🔒 Focus Mode Status</h3>
+<div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+  <div id="focusModeStatus" style="text-align: center; font-size: 18px; margin-bottom: 15px;"></div>
+  <button id="focusModeBtn" onclick="toggleFocusMode()" style="padding: 12px 30px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; transition: all 0.3s ease;">🔒 Enable Focus Mode</button>
+  
+  <div id="focusModeStats" style="margin-top: 15px; padding: 12px; background: white; border-radius: 6px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px;">
+    <div style="text-align: center;">
+      <div style="font-weight: bold; color: #667eea;">Study Today</div>
+      <div id="statsToday" style="font-size: 14px; font-weight: bold;">0 min</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-weight: bold; color: #764ba2;">Blocked Apps</div>
+      <div id="statsBlocked" style="font-size: 14px; font-weight: bold;">0</div>
+    </div>
+  </div>
+  
+  <p style="font-size: 12px; color: #999; margin-top: 15px; text-align: center;">💡 <strong>Focus Mode Features:</strong> Blocks all selected apps • Plays focus music • Shows real-time warnings • Unlocks rewards based on study time</p>
+</div>
+
+</div>
+
+<!-- SETTINGS (If needed) -->
+
+<div id="settings" class="page">
+
+<h2>⚙️ Settings & Account</h2>
+
+<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+  <h3>🔐 Account Information</h3>
+  <p style="margin: 8px 0;"><strong>Username:</strong> <span id="settingsUsername"></span></p>
+  <p style="margin: 8px 0;"><strong>Email:</strong> <span id="settingsEmail"></span></p>
+  <p style="margin: 8px 0;"><strong>Account Created:</strong> <span id="settingsDateCreated"></span></p>
+  <p style="margin: 8px 0;"><strong>Total Study Time:</strong> <span id="settingsTotalTime"></span> hours</p>
+  <p style="margin: 8px 0;"><strong>Current Streak:</strong> <span id="settingsStreak"></span> days</p>
+  <p style="margin: 8px 0;"><strong>Tasks Completed:</strong> <span id="settingsTasks"></span></p>
+</div>
+
+<div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+  <h3>🔑 Security Settings</h3>
+  <button onclick="showChangePasswordForm()" style="padding: 12px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; margin-bottom: 10px; width: 100%; font-weight: bold;">🔄 Change Password</button>
+  <button onclick="enableTwoFactor()" style="padding: 12px 20px; background: #51cf66; color: white; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;">🛡️ Two-Factor Security (Coming Soon)</button>
+</div>
+
+<!-- CHANGE PASSWORD MODAL -->
+<div id="changePasswordForm" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
+  <h3>Change Password</h3>
+  <input id="currentPassword" type="password" placeholder="Current Password" style="padding: 10px; border: 2px solid #ddd; border-radius: 6px; width: 100%; margin: 10px 0; font-size: 14px;">
+  <input id="newPassword" type="password" placeholder="New Password (min 6 chars)" onkeyup="checkPasswordStrength(this.value)" style="padding: 10px; border: 2px solid #ddd; border-radius: 6px; width: 100%; margin: 10px 0; font-size: 14px;">
+  <div id="newStrengthIndicator"></div>
+  <input id="confirmPassword" type="password" placeholder="Confirm New Password" style="padding: 10px; border: 2px solid #ddd; border-radius: 6px; width: 100%; margin: 10px 0; font-size: 14px;">
+  <div style="display: flex; gap: 10px;">
+    <button onclick="updatePassword()" style="padding: 10px 20px; background: #51cf66; color: white; border: none; border-radius: 6px; cursor: pointer; flex: 1; font-weight: bold;">✅ Update Password</button>
+    <button onclick="hideChangePasswordForm()" style="padding: 10px 20px; background: #999; color: white; border: none; border-radius: 6px; cursor: pointer; flex: 1;">Cancel</button>
+  </div>
+</div>
+
+<div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+  <h3>💾 Data Management</h3>
+  <button onclick="exportData()" style="padding: 12px 20px; background: #51cf66; color: white; border: none; border-radius: 6px; cursor: pointer; margin-bottom: 10px; width: 100%; font-weight: bold;">📥 Export Data (Backup)</button>
+  <button onclick="document.getElementById('importFile').click()" style="padding: 12px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;">📤 Import Data (Restore)</button>
+  <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
+  <p style="font-size: 12px; color: #999; margin-top: 10px;">💡 Backup your data regularly to avoid losing progress!</p>
+</div>
+
+<div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
+  <h3>⚠️ Danger Zone</h3>
+  <button onclick="if(confirm('Are you sure? This will DELETE all your data permanently!')) resetProgress()" style="padding: 12px 20px; background: #ff6b6b; color: white; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;">🗑️ Delete All Data</button>
+  <p style="font-size: 12px; color: #999; margin-top: 10px;">⚠️ This action cannot be undone. Backup your data first!</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- NAVIGATION -->
+
+<div class="bottomNav" id="nav" style="display:none">
+  <button onclick="showPage('home')" class="active nav-btn" data-page="home">🏠</button>
+  <button onclick="showPage('study')" class="nav-btn" data-page="study">⏱</button>
+  <button onclick="showPage('planner')" class="nav-btn" data-page="planner">📅</button>
+  <button onclick="showPage('goals')" class="nav-btn" data-page="goals">🎯</button>
+  <button onclick="showPage('stats')" class="nav-btn" data-page="stats">📊</button>
+  <button onclick="showPage('focus')" class="nav-btn" data-page="focus">🎵</button>
+  <button onclick="showPage('ai')" class="nav-btn" data-page="ai">🤖</button>
+  <button onclick="showPage('settings')" class="nav-btn" data-page="settings">⚙️</button>
+</div>
+
+<!-- NOTIFICATION CONTAINER -->
+<div id="notificationContainer"></div>
+
+<!-- ACHIEVEMENT MODAL -->
+<div id="achievementModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <h2 id="modalAchievementTitle"></h2>
+    <div style="text-align: center; font-size: 48px; margin: 20px 0;" id="modalAchievementIcon"></div>
+    <p id="modalAchievementDesc" style="font-size: 16px; margin: 15px 0; color: #666;"></p>
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+      <p><strong>Progress:</strong> <span id="modalProgress"></span></p>
+      <div style="background: #ddd; height: 10px; border-radius: 5px; margin: 10px 0; overflow: hidden;">
+        <div id="modalProgressBar" style="background: #667eea; height: 100%; width: 0%;"></div>
+      </div>
+    </div>
+    <p id="modalUnlockStatus" style="font-size: 14px; margin: 15px 0;"></p>
+    <button onclick="closeModal()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 15px; width: 100%;">Close</button>
+  </div>
+</div>
+
+<!-- STATS MODAL -->
+<div id="statsModal" class="modal">
+  <div class="modal-content" style="max-width: 600px;">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <h2 id="modalStatsTitle"></h2>
+    <div id="modalStatsContent" style="margin-top: 20px;"></div>
+    <button onclick="closeModal()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 15px; width: 100%;">Close</button>
+  </div>
+</div>
+
+<script>
+
+// ======================= DATA MANAGEMENT =======================
+
+let users = JSON.parse(localStorage.getItem("users")) || {};
+let currentUser = null;
+let timerInterval = null;
+let timerRunning = false;
+let timerPaused = false;
+let timerSeconds = 0;
+let breakSessionActive = false;
+let currentTaskFilter = "all";
+let mediaBlockerActive = false;
+
+const achievements = {
+  first_study: { 
+    icon: "🔥", 
+    name: "First Steps", 
+    description: "Completed your first study session",
+    requirement: "Study for at least 5 minutes",
+    condition: (u) => u.minutes >= 5,
+    target: 5,
+    category: "study"
+  },
+  study_hour: { 
+    icon: "📚", 
+    name: "Scholar", 
+    description: "Reached 1 hour of total study time",
+    requirement: "Complete 1 hour of study sessions",
+    condition: (u) => u.minutes >= 60,
+    target: 60,
+    category: "study"
+  },
+  study_5h: { 
+    icon: "⭐", 
+    name: "Dedicated", 
+    description: "Reached 5 hours of total study time",
+    requirement: "Complete 5 hours of study sessions",
+    condition: (u) => u.minutes >= 300,
+    target: 300,
+    category: "study"
+  },
+  study_10h: { 
+    icon: "💎", 
+    name: "Master", 
+    description: "Reached 10 hours of total study time",
+    requirement: "Complete 10 hours of study sessions",
+    condition: (u) => u.minutes >= 600,
+    target: 600,
+    category: "study"
+  },
+  study_50h: { 
+    icon: "👑", 
+    name: "Study Legend", 
+    description: "Reached 50 hours of total study time",
+    requirement: "Complete 50 hours of study sessions",
+    condition: (u) => u.minutes >= 3000,
+    target: 3000,
+    category: "study"
+  },
+  streak_week: { 
+    icon: "🔥", 
+    name: "Unstoppable", 
+    description: "Maintained a 7-day study streak",
+    requirement: "Study for 7 consecutive days",
+    condition: (u) => u.streak >= 7,
+    target: 7,
+    category: "consistency"
+  },
+  streak_month: { 
+    icon: "👑", 
+    name: "Legendary", 
+    description: "Maintained a 30-day study streak",
+    requirement: "Study for 30 consecutive days",
+    condition: (u) => u.streak >= 30,
+    target: 30,
+    category: "consistency"
+  },
+  streak_100: { 
+    icon: "🌟", 
+    name: "Immortal", 
+    description: "Maintained a 100-day study streak",
+    requirement: "Study for 100 consecutive days",
+    condition: (u) => u.streak >= 100,
+    target: 100,
+    category: "consistency"
+  },
+  tasks_10: { 
+    icon: "✅", 
+    name: "Task Master", 
+    description: "Completed 10 tasks",
+    requirement: "Complete 10 or more tasks",
+    condition: (u) => u.completedTasks >= 10,
+    target: 10,
+    category: "productivity"
+  },
+  tasks_50: { 
+    icon: "🎯", 
+    name: "Productivity Pro", 
+    description: "Completed 50 tasks",
+    requirement: "Complete 50 or more tasks",
+    condition: (u) => u.completedTasks >= 50,
+    target: 50,
+    category: "productivity"
+  },
+  tasks_100: { 
+    icon: "🚀", 
+    name: "Task Destroyer", 
+    description: "Completed 100 tasks",
+    requirement: "Complete 100 or more tasks",
+    condition: (u) => u.completedTasks >= 100,
+    target: 100,
+    category: "productivity"
+  },
+  perfect_day: { 
+    icon: "💯", 
+    name: "Perfect Day", 
+    description: "Completed 3 study sessions in one day",
+    requirement: "Complete 3+ sessions in 24 hours",
+    condition: (u) => u.sessionsCompleted >= 3,
+    target: 3,
+    category: "productivity"
+  },
+  marathon_session: { 
+    icon: "🏃", 
+    name: "Marathon Runner", 
+    description: "Completed a 2-hour study session",
+    requirement: "Study for 2+ hours in one session",
+    condition: (u) => u.longestSession >= 120,
+    target: 120,
+    category: "focus"
+  },
+  goal_setter: { 
+    icon: "🎪", 
+    name: "Goal Setter", 
+    description: "Created 3 or more study goals",
+    requirement: "Create 3 goals",
+    condition: (u) => (u.goals || []).length >= 3,
+    target: 3,
+    category: "planning"
+  },
+  goal_achiever: { 
+    icon: "🏆", 
+    name: "Goal Achiever", 
+    description: "Completed 5 study goals",
+    requirement: "Complete 5 goals",
+    condition: (u) => (u.goalsCompleted || 0) >= 5,
+    target: 5,
+    category: "planning"
+  },
+  early_bird: { 
+    icon: "🌅", 
+    name: "Early Bird", 
+    description: "Studied before 8 AM",
+    requirement: "Complete a session before 8:00 AM",
+    condition: (u) => (u.earlyBirdCount || 0) >= 1,
+    target: 1,
+    category: "habits"
+  },
+  night_owl: { 
+    icon: "🦉", 
+    name: "Night Owl", 
+    description: "Studied after 10 PM",
+    requirement: "Complete a session after 10:00 PM",
+    condition: (u) => (u.nightOwlCount || 0) >= 1,
+    target: 1,
+    category: "habits"
+  },
+  music_lover: { 
+    icon: "🎵", 
+    name: "Music Lover", 
+    description: "Used music during study sessions",
+    requirement: "Play music during 5 sessions",
+    condition: (u) => (u.musicSessions || 0) >= 5,
+    target: 5,
+    category: "features"
+  },
+  telugu_fan: { 
+    icon: "🎶", 
+    name: "Telugu Music Fan", 
+    description: "Enjoyed Telugu study songs",
+    requirement: "Play 3 Telugu songs",
+    condition: (u) => (u.teluguSongsPlayed || 0) >= 3,
+    target: 3,
+    category: "features"
+  },
+  blocker: { 
+    icon: "🚫", 
+    name: "Digital Guardian", 
+    description: "Blocked distracting apps",
+    requirement: "Block at least 3 apps",
+    condition: (u) => (u.blockedAppsCount || 0) >= 3,
+    target: 3,
+    category: "discipline"
+  },
+  customizer: { 
+    icon: "⚙️", 
+    name: "Customizer", 
+    description: "Personalized your experience",
+    requirement: "Change settings 5 times",
+    condition: (u) => (u.settingsChanged || 0) >= 5,
+    target: 5,
+    category: "features"
+  },
+  data_keeper: { 
+    icon: "💾", 
+    name: "Data Keeper", 
+    description: "Exported your study data",
+    requirement: "Export user data",
+    condition: (u) => u.dataExported === true,
+    target: 1,
+    category: "features"
+  },
+  session_master: { 
+    icon: "🎯", 
+    name: "Session Master", 
+    description: "Completed 100 study sessions",
+    requirement: "Complete 100 sessions",
+    condition: (u) => (u.totalSessions || 0) >= 100,
+    target: 100,
+    category: "consistency"
+  },
+  weekly_warrior: { 
+    icon: "⚔️", 
+    name: "Weekly Warrior", 
+    description: "Studied 10+ hours in a week",
+    requirement: "Study 10+ hours in one week",
+    condition: (u) => {
+      let weekTotal = Object.values(u.weeklyData || {}).reduce((a,b) => a+b, 0);
+      return weekTotal >= 600; // 10 hours
+    },
+    target: 600,
+    category: "consistency"
+  }
+};
+
+// Helper function to get current progress value for achievements
+function getCurrentValue(user, achievementKey) {
+  switch(achievementKey) {
+    case 'first_study':
+    case 'study_hour':
+    case 'study_5h':
+    case 'study_10h':
+    case 'study_50h':
+      return user.minutes;
+    case 'streak_week':
+    case 'streak_month':
+    case 'streak_100':
+      return user.streak;
+    case 'tasks_10':
+    case 'tasks_50':
+    case 'tasks_100':
+      return user.completedTasks;
+    case 'perfect_day':
+      return user.sessionsCompleted;
+    case 'marathon_session':
+      return user.longestSession || 0;
+    case 'goal_setter':
+      return (user.goals || []).length;
+    case 'goal_achiever':
+      return user.goalsCompleted || 0;
+    case 'early_bird':
+      return user.earlyBirdCount || 0;
+    case 'night_owl':
+      return user.nightOwlCount || 0;
+    case 'music_lover':
+      return user.musicSessions || 0;
+    case 'telugu_fan':
+      return user.teluguSongsPlayed || 0;
+    case 'blocker':
+      return user.blockedAppsCount || 0;
+    case 'customizer':
+      return user.settingsChanged || 0;
+    case 'data_keeper':
+      return user.dataExported ? 1 : 0;
+    case 'session_master':
+      return user.totalSessions || 0;
+    case 'weekly_warrior':
+      return Object.values(user.weeklyData || {}).reduce((a,b) => a+b, 0);
+    default:
+      return 0;
+  }
+}
+
+// ======================= AUTHENTICATION =======================
+
+function validateInput(username, password) {
+  if (username.length < 3) {
+    showNotification("Username must be at least 3 characters", "error");
+    return false;
+  }
+  if (password.length < 6) {
+    showNotification("Password must be at least 6 characters", "error");
+    return false;
+  }
+  return true;
+}
+
+function validateEmail(email) {
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function checkPasswordStrength(password) {
+  let strength = "weak";
+  let color = "class='strength-weak'";
+  let text = "❌ Weak Password";
+  
+  if (password.length >= 8) {
+    if (/[A-Z]/.test(password) && /[0-9]/.test(password)) {
+      strength = "strong";
+      color = "class='strength-strong'";
+      text = "✅ Strong Password";
+    } else {
+      strength = "medium";
+      color = "class='strength-medium'";
+      text = "⚠️ Medium Password";
+    }
+  }
+  
+  // Try both possible IDs
+  let indicator = document.getElementById("strengthIndicator") || document.getElementById("newStrengthIndicator");
+  if (indicator) {
+    indicator.innerHTML = `<div ${color}>${text}</div>`;
+  }
+}
+
+// Simple hash function for passwords (client-side, not secure for production)
+function hashPassword(password) {
+  let hash = 0;
+  for (let i = 0; i < password.length; i++) {
+    let char = password.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(16);
+}
+
+// Step-by-step signup functions
+function proceedToStep2() {
+  let u = document.getElementById("signupUsername").value.trim();
+  
+  if (u.length < 3) {
+    showNotification("Username/Email must be at least 3 characters!", "error");
+    return;
+  }
+  
+  if (users[u]) {
+    showNotification("This username/email is already taken!", "error");
+    return;
+  }
+  
+  // Display the entered username/email
+  document.getElementById("signupDisplayName").innerText = `✓ ${u}`;
+  
+  // Move to step 2
+  document.getElementById("signupStep1").style.display = "none";
+  document.getElementById("signupStep2").style.display = "block";
+  document.getElementById("signupStep3").style.display = "none";
+}
+
+function backToStep1() {
+  document.getElementById("signupStep1").style.display = "block";
+  document.getElementById("signupStep2").style.display = "none";
+  document.getElementById("signupStep3").style.display = "none";
+  document.getElementById("signupPassword").value = "";
+  document.getElementById("strengthIndicator").innerHTML = "";
+}
+
+function proceedToStep3() {
+  let p = document.getElementById("signupPassword").value;
+  
+  if (p.length < 6) {
+    showNotification("Password must be at least 6 characters!", "error");
+    return;
+  }
+  
+  // Move to step 3
+  document.getElementById("signupStep1").style.display = "none";
+  document.getElementById("signupStep2").style.display = "none";
+  document.getElementById("signupStep3").style.display = "block";
+}
+
+function backToStep2() {
+  document.getElementById("signupStep1").style.display = "none";
+  document.getElementById("signupStep2").style.display = "block";
+  document.getElementById("signupStep3").style.display = "none";
+  document.getElementById("signupPasswordConfirm").value = "";
+}
+
+function completeSignup() {
+  let u = document.getElementById("signupUsername").value.trim();
+  let p = document.getElementById("signupPassword").value;
+  let pc = document.getElementById("signupPasswordConfirm").value;
+
+  if (p !== pc) {
+    showNotification("❌ Passwords do not match!", "error");
+    return;
+  }
+  
+  if (users[u]) {
+    showNotification("User already exists!", "error");
+    return;
+  }
+
+  let hashedPassword = hashPassword(p);
+
+  users[u] = {
+    password: hashedPassword,
+    minutes: 0,
+    streak: 0,
+    tasks: [],
+    goals: [],
+    completedTasks: 0,
+    sessionsCompleted: 0,
+    sessionHistory: [],
+    lastSessionDate: new Date().toDateString(),
+    darkMode: false,
+    weeklyData: {
+      Monday: 0,
+      Tuesday: 0,
+      Wednesday: 0,
+      Thursday: 0,
+      Friday: 0,
+      Saturday: 0,
+      Sunday: 0
+    },
+    dailyData: {}, // date -> minutes
+    monthlyData: {}, // YYYY-MM -> total minutes
+    goalsCompleted: 0,
+    longestSession: 0,
+    totalSessions: 0,
+    earlyBirdCount: 0, // sessions before 8 AM
+    nightOwlCount: 0, // sessions after 10 PM
+    musicSessions: 0,
+    teluguSongsPlayed: 0,
+    blockedAppsCount: 0,
+    settingsChanged: 0,
+    dataExported: false,
+    blockedApps: {
+      facebook: false,
+      twitter: false,
+      instagram: false,
+      youtube: false,
+      tiktok: false,
+      reddit: false,
+      discord: false,
+      snapchat: false
+    },
+    mediaPref: "focus",
+    musicVolume: 50,
+    createdDate: new Date().toISOString(),
+    recoveryCode: Math.random().toString(36).substring(7).toUpperCase()
+  };
+
+  localStorage.setItem("users", JSON.stringify(users));
+  showNotification("✅ Account created successfully! Please login now.", "success");
+  document.getElementById("signupUsername").value = "";
+  document.getElementById("signupPassword").value = "";
+  document.getElementById("signupPasswordConfirm").value = "";
+  document.getElementById("strengthIndicator").innerHTML = "";
+  
+  // Reset to login mode
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("recoverForm").style.display = "none";
+  document.getElementById("signupStep1").style.display = "block";
+  document.getElementById("signupStep2").style.display = "none";
+  document.getElementById("signupStep3").style.display = "none";
+}
+
+function login() {
+  let u = document.getElementById("loginUsername").value.trim();
+  let p = document.getElementById("loginPassword").value;
+
+  if (!u || !p) {
+    showNotification("Please enter username/email and password!", "error");
+    return;
+  }
+
+  if (!users[u]) {
+    showNotification("❌ User not found! Please check your username/email.", "error");
+    return;
+  }
+
+  let hashedPassword = hashPassword(p);
+  if (users[u].password !== hashedPassword) {
+    showNotification("❌ Incorrect password! Please try again.", "error");
+    return;
+  }
+
+  currentUser = u;
+  localStorage.setItem("currentUser", currentUser);
+  loginPage.style.display = "none";
+  app.style.display = "block";
+  nav.style.display = "flex";
+
+  // Restore dark mode preference
+  if (users[currentUser].darkMode) {
+    document.body.classList.add("dark-mode");
+  }
+
+  // Initialize app blocker
+  initializeAppBlocker();
+
+  userGreeting.innerText = `👋 Welcome, ${u}!`;
+  updateDashboard();
+  loadTasks();
+  loadLeaderboard();
+  loadGoals();
+  updateSettings();
+  loadSessionsToday();
+  showNotification(`✅ Welcome back, ${u}!`, "success");
+  
+  document.getElementById("loginUsername").value = "";
+  document.getElementById("loginPassword").value = "";
+}
+
+function showRecoveryForm() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("recoverForm").style.display = "block";
+}
+
+function showSignupForm() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "block";
+  document.getElementById("recoverForm").style.display = "none";
+}
+
+function showLoginForm() {
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("recoverForm").style.display = "none";
+}
+
+function recoverPassword() {
+  let u = document.getElementById("recoverUsername").value.trim();
+  let e = document.getElementById("recoverEmail").value.trim();
+
+  if (!u || !e) {
+    showNotification("Please enter username and email!", "error");
+    return;
+  }
+
+  if (!users[u]) {
+    showNotification("❌ User not found!", "error");
+    return;
+  }
+
+  if (users[u].email !== e) {
+    showNotification("❌ Email doesn't match our records!", "error");
+    return;
+  }
+
+  let recoveryCode = users[u].recoveryCode;
+  let message = `
+    ✅ PASSWORD RECOVERY CODE
+    
+    Username: ${u}
+    Recovery Code: ${recoveryCode}
+    
+    💡 Use this code to reset your password.
+    
+    If you didn't request this, please ignore.
+  `;
+  
+  showNotification("📧 Recovery code: " + recoveryCode, "success");
+  
+  // In real app, would send email here
+  console.log("📧 Email would be sent to:", e);
+  console.log(message);
+  
+  // Show password reset form
+  setTimeout(() => {
+    let newPassword = prompt("Enter your new password (min 6 characters):");
+    if (!newPassword) return;
+    
+    if (newPassword.length < 6) {
+      showNotification("Password must be at least 6 characters!", "error");
+      return;
+    }
+    
+    users[u].password = hashPassword(newPassword);
+    localStorage.setItem("users", JSON.stringify(users));
+    showNotification("✅ Password reset successfully! You can now login.", "success");
+    document.getElementById("recoverUsername").value = "";
+    document.getElementById("recoverEmail").value = "";
+    showLoginForm();
+  }, 500);
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem("currentUser");
+  location.reload();
+}
+
+// ======================= SETTINGS & SECURITY =======================
+
+function showChangePasswordForm() {
+  document.getElementById("changePasswordForm").style.display = "block";
+}
+
+function hideChangePasswordForm() {
+  document.getElementById("changePasswordForm").style.display = "none";
+  document.getElementById("currentPassword").value = "";
+  document.getElementById("newPassword").value = "";
+  document.getElementById("confirmPassword").value = "";
+}
+
+function updatePassword() {
+  let current = document.getElementById("currentPassword").value;
+  let newPass = document.getElementById("newPassword").value;
+  let confirm = document.getElementById("confirmPassword").value;
+  
+  if (!current || !newPass || !confirm) {
+    showNotification("Please fill all password fields!", "error");
+    return;
+  }
+  
+  if (newPass.length < 6) {
+    showNotification("New password must be at least 6 characters!", "error");
+    return;
+  }
+  
+  if (newPass !== confirm) {
+    showNotification("Passwords don't match!", "error");
+    return;
+  }
+  
+  let currentHashedPassword = hashPassword(current);
+  if (users[currentUser].password !== currentHashedPassword) {
+    showNotification("❌ Current password is incorrect!", "error");
+    return;
+  }
+  
+  users[currentUser].password = hashPassword(newPass);
+  localStorage.setItem("users", JSON.stringify(users));
+  showNotification("✅ Password changed successfully!", "success");
+  hideChangePasswordForm();
+}
+
+function enableTwoFactor() {
+  showNotification("🛡️ Two-Factor Authentication feature coming soon!", "info");
+}
+
+function updateSettings() {
+  if (!currentUser) return;
+  
+  let user = users[currentUser];
+  document.getElementById("settingsUsername").innerText = currentUser;
+  document.getElementById("settingsEmail").innerText = user.email || "Not set";
+  document.getElementById("settingsDateCreated").innerText = new Date(user.createdDate).toLocaleDateString();
+  document.getElementById("settingsTotalTime").innerText = Math.round(user.minutes / 60);
+  document.getElementById("settingsStreak").innerText = user.streak;
+  document.getElementById("settingsTasks").innerText = user.completedTasks;
+}
+
+function exportData() {
+  if (!currentUser) return;
+  
+  let dataToExport = {
+    username: currentUser,
+    userData: users[currentUser],
+    exportDate: new Date().toISOString()
+  };
+  
+  let dataStr = JSON.stringify(dataToExport, null, 2);
+  let blob = new Blob([dataStr], {type: "application/json"});
+  let url = URL.createObjectURL(blob);
+  let link = document.createElement("a");
+  link.href = url;
+  link.download = `FocusBuddy_${currentUser}_${Date.now()}.json`;
+  link.click();
+  
+  showNotification("✅ Data exported successfully!", "success");
+}
+
+function importData(event) {
+  let file = event.target.files[0];
+  if (!file) return;
+  
+  let reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      let data = JSON.parse(e.target.result);
+      
+      if (!data.username || !data.userData) {
+        showNotification("❌ Invalid backup file!", "error");
+        return;
+      }
+      
+      let username = data.username;
+      users[username] = data.userData;
+      localStorage.setItem("users", JSON.stringify(users));
+      
+      showNotification("✅ Data imported successfully! Reloading...", "success");
+      setTimeout(() => location.reload(), 1500);
+    } catch(err) {
+      showNotification("❌ Error reading file: " + err.message, "error");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetProgress() {
+  if (!currentUser) return;
+  
+  users[currentUser] = {
+    password: users[currentUser].password,
+    email: users[currentUser].email,
+    minutes: 0,
+    streak: 0,
+    tasks: [],
+    goals: [],
+    completedTasks: 0,
+    sessionsCompleted: 0,
+    sessionHistory: [],
+    lastSessionDate: new Date().toDateString(),
+    darkMode: false,
+    weeklyData: {Monday: 0, Tuesday: 0, Wednesday: 0, Thursday: 0, Friday: 0, Saturday: 0, Sunday: 0},
+    blockedApps: {facebook: false, twitter: false, instagram: false, youtube: false, tiktok: false, reddit: false, discord: false, snapchat: false},
+    mediaPref: "focus",
+    musicVolume: 50,
+    createdDate: new Date().toISOString(),
+    recoveryCode: Math.random().toString(36).substring(7).toUpperCase()
+  };
+  
+  localStorage.setItem("users", JSON.stringify(users));
+  showNotification("🔄 Data reset to defaults! Reloading...", "info");
+  setTimeout(() => location.reload(), 1500);
+}
+
+// ======================= NAVIGATION =======================
+
+function showPage(p) {
+  document.querySelectorAll(".page").forEach(x => x.classList.remove("active"));
+  document.getElementById(p).classList.add("active");
+  
+  document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+  document.querySelector(`[data-page="${p}"]`).classList.add("active");
+
+  if (p === "stats") {
+    loadLeaderboard();
+    updateStatsPage();
+  }
+  
+  if (p === "focus") {
+    updateFocusModeStats();
+  }
+}
+
+function updateFocusModeStats() {
+  let todayMinutes = getStudyTimeToday();
+  let blockedCount = Object.entries(users[currentUser].blockedApps)
+    .filter(([app, isBlocked]) => isBlocked)
+    .length;
+  
+  document.getElementById("statsToday").innerText = todayMinutes + " min";
+  document.getElementById("statsBlocked").innerText = blockedCount;
+}
+
+// ======================= DARK MODE =======================
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  users[currentUser].darkMode = document.body.classList.contains("dark-mode");
+  localStorage.setItem("users", JSON.stringify(users));
+  showNotification(users[currentUser].darkMode ? "🌙 Dark Mode Enabled" : "☀️ Light Mode Enabled", "info");
+}
+
+// ======================= TASK FILTERING =======================
+
+function filterTasks(filter) {
+  currentTaskFilter = filter;
+  document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+  loadTasks();
+}
+
+// ======================= DATA EXPORT/IMPORT =======================
+
+function exportData() {
+  let dataToExport = {
+    user: currentUser,
+    userData: users[currentUser],
+    exportDate: new Date().toLocaleString()
+  };
+  let dataStr = JSON.stringify(dataToExport, null, 2);
+  let dataBlob = new Blob([dataStr], {type: 'application/json'});
+  let url = URL.createObjectURL(dataBlob);
+  let link = document.createElement('a');
+  link.href = url;
+  link.download = `FocusBuddy_${currentUser}_${new Date().toISOString().split('T')[0]}.json`;
+  link.click();
+  showNotification("✅ Data exported successfully!", "success");
+}
+
+function importData(event) {
+  let file = event.target.files[0];
+  if (!file) return;
+  
+  let reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      let importedData = JSON.parse(e.target.result);
+      if (importedData.user && importedData.userData) {
+        users[currentUser] = importedData.userData;
+        localStorage.setItem("users", JSON.stringify(users));
+        updateDashboard();
+        loadTasks();
+        loadGoals();
+        updateSettings();
+        showNotification("✅ Data imported successfully!", "success");
+      } else {
+        showNotification("❌ Invalid backup file!", "error");
+      }
+    } catch (err) {
+      showNotification("❌ Error reading file: " + err.message, "error");
+    }
+  };
+  reader.readAsText(file);
+  document.getElementById("importFile").value = "";
+}
+
+// ======================= SESSION HISTORY =======================
+
+function loadSessionsToday() {
+  let today = new Date().toDateString();
+  let sessionsToday = (users[currentUser].sessionHistory || []).filter(s => 
+    new Date(s.date).toDateString() === today
+  );
+  
+  let html = "";
+  if (sessionsToday.length === 0) {
+    html = "<p style='text-align: center; color: #999;'>No sessions today yet</p>";
+  } else {
+    sessionsToday.forEach((session, idx) => {
+      html += `<div class="session-item">
+        <span>${session.minutes} min session - ${session.time}</span>
+        <span style="font-size: 12px; color: #999;">+${session.minutes * 2} points</span>
+      </div>`;
+    });
+  }
+  if (document.getElementById("sessionsToday")) {
+    document.getElementById("sessionsToday").innerHTML = html;
+  }
+}
+
+// ======================= TIMER FUNCTIONALITY =======================
+
+function setTimer(minutes) {
+  document.querySelectorAll(".preset-btn").forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+  document.getElementById("minutes").value = minutes;
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+  let m = parseInt(minutes.value) || 0;
+  let s = m * 60;
+  let min = Math.floor(s / 60);
+  let sec = s % 60;
+  document.getElementById("timer").innerText = (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
+}
+
+function startTimer() {
+  if (timerRunning && !timerPaused) {
+    showNotification("Timer already running!", "info");
+    return;
+  }
+
+  if (timerPaused) {
+    timerRunning = true;
+    timerPaused = false;
+    showNotification("Timer resumed!", "success");
+  } else {
+    let m = parseInt(minutes.value) || 25;
+    timerSeconds = m * 60;
+    timerRunning = true;
+    showNotification(`Study session started for ${m} minutes!`, "success");
+    
+    // Suggest focus mode if not already enabled
+    if (!mediaBlockerActive) {
+      showNotification("💡 Tip: Enable Focus Mode for better concentration!", "info");
+    }
+  }
+
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplayValue();
+
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      completeStudySession();
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  if (!timerRunning) {
+    showNotification("Timer is not running!", "error");
+    return;
+  }
+  timerPaused = true;
+  timerRunning = false;
+  clearInterval(timerInterval);
+  showNotification("Timer paused!", "info");
+}
+
+function stopTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerRunning = false;
+  timerPaused = false;
+  timerSeconds = 0;
+  let m = parseInt(minutes.value) || 25;
+  updateTimerDisplayValue();
+  showNotification("Timer stopped!", "info");
+}
+
+function updateTimerDisplayValue() {
+  let min = Math.floor(timerSeconds / 60);
+  let sec = timerSeconds % 60;
+  document.getElementById("timer").innerText = (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
+}
+
+function completeStudySession() {
+  let m = parseInt(minutes.value) || 25;
+  let user = users[currentUser];
+  let now = new Date();
+  let today = now.toLocaleDateString('en-US', { weekday: 'long' });
+  let currentHour = now.getHours();
+  let todayDate = now.toDateString();
+  let currentMonth = now.toISOString().slice(0, 7); // YYYY-MM
+  
+  // Basic tracking
+  user.minutes += m;
+  user.streak += 1;
+  user.sessionsCompleted = (user.sessionsCompleted || 0) + 1;
+  user.lastSessionDate = todayDate;
+  user.totalSessions = (user.totalSessions || 0) + 1;
+  
+  // Track longest session
+  if (m > (user.longestSession || 0)) {
+    user.longestSession = m;
+  }
+  
+  // Track time-based achievements
+  if (currentHour < 8) {
+    user.earlyBirdCount = (user.earlyBirdCount || 0) + 1;
+  } else if (currentHour >= 22) { // 10 PM
+    user.nightOwlCount = (user.nightOwlCount || 0) + 1;
+  }
+  
+  // Update weekly data
+  if (!user.weeklyData) {
+    user.weeklyData = {
+      Monday: 0, Tuesday: 0, Wednesday: 0, Thursday: 0,
+      Friday: 0, Saturday: 0, Sunday: 0
+    };
+  }
+  user.weeklyData[today] += m;
+  
+  // Update daily data
+  if (!user.dailyData) user.dailyData = {};
+  if (!user.dailyData[todayDate]) user.dailyData[todayDate] = 0;
+  user.dailyData[todayDate] += m;
+  
+  // Update monthly data
+  if (!user.monthlyData) user.monthlyData = {};
+  if (!user.monthlyData[currentMonth]) user.monthlyData[currentMonth] = 0;
+  user.monthlyData[currentMonth] += m;
+  
+  // Add to session history
+  if (!user.sessionHistory) user.sessionHistory = [];
+  user.sessionHistory.push({
+    minutes: m,
+    date: now.toISOString(),
+    time: now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+    day: today,
+    hour: currentHour
+  });
+  
+  localStorage.setItem("users", JSON.stringify(users));
+  updateDashboard();
+  loadSessionsToday();
+  
+  // Check for new achievements
+  checkAndUnlockAchievements();
+  
+  showNotification("🎉 Study session complete! Great job!", "success");
+  minutes.value = 25;
+  updateTimerDisplay();
+}
+
+function checkNewAchievements() {
+  let user = users[currentUser];
+  let newAchievements = [];
+  
+  Object.entries(achievements).forEach(([key, ach]) => {
+    if (ach.condition(user)) {
+      // Check if this achievement was just unlocked
+      if (!user.unlockedAchievements) user.unlockedAchievements = {};
+      if (!user.unlockedAchievements[key]) {
+        user.unlockedAchievements[key] = true;
+        newAchievements.push(ach);
+      }
+    }
+  });
+  
+  // Show notifications for new achievements
+  newAchievements.forEach(ach => {
+    setTimeout(() => {
+      showNotification(`🏆 New Achievement: ${ach.name}!`, "success");
+    }, 1000);
+  });
+  
+  if (newAchievements.length > 0) {
+    localStorage.setItem("users", JSON.stringify(users));
+    loadAchievements(); // Refresh achievements display
+  }
+}
+
+// ======================= BREAK TIMER =======================
+
+function startBreakTimer() {
+  if (breakSessionActive) {
+    showNotification("Break timer already running!", "info");
+    return;
+  }
+  
+  let breakMins = parseInt(document.getElementById("breakMinutes").value) || 5;
+  breakSessionActive = true;
+  let breakSeconds = breakMins * 60;
+  
+  showNotification(`☕ Break started! Relax for ${breakMins} minutes.`, "info");
+  
+  let breakInterval = setInterval(() => {
+    breakSeconds--;
+    let min = Math.floor(breakSeconds / 60);
+    let sec = breakSeconds % 60;
+    document.getElementById("breakStatus").innerText = 
+      `Break time remaining: ${min}:${sec < 10 ? '0' : ''}${sec}`;
+    
+    if (breakSeconds <= 0) {
+      clearInterval(breakInterval);
+      breakSessionActive = false;
+      document.getElementById("breakStatus").innerText = "";
+      showNotification("🔔 Break time over! Ready to study?", "success");
+    }
+  }, 1000);
+}
+
+// ======================= DASHBOARD =======================
+
+function updateDashboard() {
+  let user = users[currentUser];
+  document.getElementById("streak").innerText = user.streak;
+  document.getElementById("time").innerText = (user.minutes / 60).toFixed(1);
+  document.getElementById("points").innerText = user.minutes * 2;
+  document.getElementById("tasks").innerText = user.completedTasks || 0;
+  
+  // Update daily rewards
+  let todayMinutes = getStudyTimeToday();
+  let rewardEmoji = "🎁";
+  if (todayMinutes >= 180) rewardEmoji = "👑";
+  else if (todayMinutes >= 120) rewardEmoji = "🏆";
+  else if (todayMinutes >= 60) rewardEmoji = "🎉";
+  
+  document.getElementById("rewardsStatus").innerText = `${rewardEmoji} ${todayMinutes}m`;
+  
+  loadAchievements();
+  loadWeeklyStats();
+  
+  // Set music preference
+  let preference = user.mediaPref || "focus";
+  document.getElementById("musicCategory").value = preference;
+  loadMusicPlaylist();
+}
+
+function loadAchievements() {
+  let user = users[currentUser];
+  let html = "";
+  
+  // Group achievements by category
+  const categories = {
+    study: { icon: "📚", name: "Study Time", color: "#667eea" },
+    consistency: { icon: "🔥", name: "Consistency", color: "#f093fb" },
+    productivity: { icon: "⚡", name: "Productivity", color: "#4facfe" },
+    focus: { icon: "🎯", name: "Focus", color: "#43e97b" },
+    planning: { icon: "📋", name: "Planning", color: "#fa709a" },
+    habits: { icon: "🌅", name: "Habits", color: "#a8edea" },
+    discipline: { icon: "🛡️", name: "Discipline", color: "#ffecd2" },
+    features: { icon: "⚙️", name: "Features", color: "#fcb69f" }
+  };
+  
+  Object.entries(categories).forEach(([catKey, cat]) => {
+    let categoryAchievements = Object.entries(achievements).filter(([_, ach]) => ach.category === catKey);
+    if (categoryAchievements.length === 0) return;
+    
+    html += `<div class="achievement-category">
+      <h4 style="color: ${cat.color}; margin: 15px 0 10px 0; font-size: 16px;">
+        ${cat.icon} ${cat.name}
+      </h4>
+      <div class="achievement-grid">`;
+    
+    categoryAchievements.forEach(([key, ach]) => {
+      let unlocked = ach.condition(user) ? "unlocked" : "";
+      let progressPercent = Math.min((getCurrentValue(user, key) / ach.target) * 100, 100);
+      let progressBar = unlocked ? 
+        `<div class="achievement-progress-bar unlocked" style="width: 100%"></div>` :
+        `<div class="achievement-progress-bar" style="width: ${progressPercent}%"></div>`;
+      
+      html += `<div class="achievement ${unlocked}" onclick="showAchievementDetail('${key}')">
+        <div class="achievement-icon">${ach.icon}</div>
+        <div class="achievement-name">${ach.name}</div>
+        <div class="achievement-progress">
+          ${progressBar}
+        </div>
+        ${unlocked ? '<div class="achievement-badge">✓</div>' : ''}
+      </div>`;
+    });
+    
+    html += `</div></div>`;
+  });
+  
+  document.getElementById("achievementsList").innerHTML = html;
+}
+
+function showAchievementDetail(achievementKey) {
+  let achievement = achievements[achievementKey];
+  let user = users[currentUser];
+  let isUnlocked = achievement.condition(user);
+  
+  // Get current progress value based on achievement type
+  let currentValue = getCurrentValue(user, achievementKey);
+  
+  let progressPercent = Math.min((currentValue / achievement.target) * 100, 100);
+  let modal = document.getElementById("achievementModal");
+  
+  document.getElementById("modalAchievementTitle").innerText = achievement.name;
+  document.getElementById("modalAchievementIcon").innerText = achievement.icon;
+  document.getElementById("modalAchievementDesc").innerText = achievement.description;
+  document.getElementById("modalProgress").innerText = `${currentValue} / ${achievement.target}`;
+  document.getElementById("modalProgressBar").style.width = progressPercent + "%";
+  
+  let unlockStatus = isUnlocked 
+    ? `<span style="color: #51cf66; font-weight: bold;">✅ UNLOCKED</span>`
+    : `<span style="color: #999;">🔒 Locked - ${achievement.requirement}</span>`;
+  
+  document.getElementById("modalUnlockStatus").innerHTML = unlockStatus;
+  
+  if (modal) {
+    modal.classList.add("show");
+  }
+}
+
+// Modal functions
+function closeModal() {
+  let modals = [
+    document.getElementById("achievementModal"), 
+    document.getElementById("statsModal")
+  ];
+  modals.forEach(m => {
+    if (m) {
+      m.classList.remove("show");
+      setTimeout(() => {
+        m.style.display = "none";
+      }, 300);
+    }
+  });
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(event) {
+  let achievementModal = document.getElementById("achievementModal");
+  let statsModal = document.getElementById("statsModal");
+  
+  if (achievementModal && event.target === achievementModal) {
+    closeModal();
+  }
+  if (statsModal && event.target === statsModal) {
+    closeModal();
+  }
+});
+
+// Close modal with ESC key
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeModal();
+  }
+});
+
+// ======================= DASHBOARD DETAILS =======================
+
+function showStreakDetails() {
+  let user = users[currentUser];
+  let modalContent = `
+    <div style="text-align: center; font-size: 64px; margin: 20px 0;">🔥</div>
+    <h3 style="text-align: center; margin: 15px 0;">Current Streak: ${user.streak} days</h3>
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+      <p><strong>Last Session:</strong> ${user.lastSessionDate}</p>
+      <p><strong>Status:</strong> Keep studying to maintain your streak!</p>
+      <p style="font-size: 12px; margin-top: 10px;"><strong>💡 Tip:</strong> Study at least once per day to keep your streak alive.</p>
+    </div>
+  `;
+  showStatsModal("Streak Details", modalContent);
+}
+
+function showTimeDetails() {
+  let user = users[currentUser];
+  let hours = (user.minutes / 60).toFixed(1);
+  let avgDaily = user.streak > 0 ? ((user.minutes / user.streak) / 60).toFixed(1) : 0;
+  
+  let modalContent = `
+    <div style="text-align: center; font-size: 64px; margin: 20px 0;">📚</div>
+    <h3 style="text-align: center; margin: 15px 0;">Total Study Time: ${hours} hrs</h3>
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+      <p><strong>Total Minutes:</strong> ${user.minutes} mins</p>
+      <p><strong>Average Per Day:</strong> ${avgDaily} hrs</p>
+      <p><strong>Sessions Completed:</strong> ${user.sessionsCompleted || 0}</p>
+      <p style="font-size: 12px; margin-top: 10px;"><strong>💡 Tip:</strong> Consistent study habits build great results!</p>
+    </div>
+  `;
+  showStatsModal("Study Time Details", modalContent);
+}
+
+function showPointsDetails() {
+  let user = users[currentUser];
+  let points = user.minutes * 2;
+  
+  let modalContent = `
+    <div style="text-align: center; font-size: 64px; margin: 20px 0;">🏅</div>
+    <h3 style="text-align: center; margin: 15px 0;">Total Points: ${points}</h3>
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+      <p><strong>Points System:</strong> 2 points per study minute</p>
+      <p><strong>Study Minutes:</strong> ${user.minutes} mins</p>
+      <p><strong>Calculated Points:</strong> ${user.minutes} × 2 = ${points}</p>
+      <p style="font-size: 12px; margin-top: 10px;"><strong>💡 Tip:</strong> Complete study sessions to earn more points!</p>
+    </div>
+  `;
+  showStatsModal("Points Details", modalContent);
+}
+
+function showTasksDetails() {
+  let user = users[currentUser];
+  let totalTasks = (user.tasks || []).length;
+  let completedTasks = user.completedTasks || 0;
+  let completionRate = totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : 0;
+  
+  let modalContent = `
+    <div style="text-align: center; font-size: 64px; margin: 20px 0;">🎯</div>
+    <h3 style="text-align: center; margin: 15px 0;">Task Progress</h3>
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+      <p><strong>Completed Tasks:</strong> ${completedTasks}</p>
+      <p><strong>Total Tasks Created:</strong> ${totalTasks}</p>
+      <p><strong>Completion Rate:</strong> ${completionRate}%</p>
+      <div style="background: #ddd; height: 10px; border-radius: 5px; margin: 10px 0; overflow: hidden;">
+        <div style="background: #51cf66; height: 100%; width: ${completionRate}%;"></div>
+      </div>
+      <p style="font-size: 12px; margin-top: 10px;"><strong>💡 Tip:</strong> Break large tasks into smaller ones for better productivity!</p>
+    </div>
+  `;
+  showStatsModal("Tasks Details", modalContent);
+}
+
+function showStatsModal(title, content) {
+  document.getElementById("modalStatsTitle").innerText = title;
+  document.getElementById("modalStatsContent").innerHTML = content;
+  let modal = document.getElementById("statsModal");
+  if (modal) {
+    modal.classList.add("show");
+    modal.style.display = "flex";
+  }
+}
+
+function loadWeeklyStats() {
+  let user = users[currentUser];
+  
+  // Initialize weekly data if it doesn't exist
+  if (!user.weeklyData) {
+    user.weeklyData = {
+      Monday: 0,
+      Tuesday: 0,
+      Wednesday: 0,
+      Thursday: 0,
+      Friday: 0,
+      Saturday: 0,
+      Sunday: 0
+    };
+  }
+  
+  let html = "";
+  Object.entries(user.weeklyData).forEach(([day, minutes]) => {
+    let percentage = Math.min((minutes / 120) * 100, 100);
+    html += `<div class="stat-box" onclick="showWeeklyStatsDetail()" style="cursor: pointer; transition: all 0.3s ease;"onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <div class="stat-value">${minutes}m</div>
+      <div class="stat-label">${day.slice(0,3)}</div>
+      <div style="background: #e0e0e0; height: 3px; border-radius: 2px; margin-top: 5px; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; width: ${percentage}%;"></div>
+      </div>
+    </div>`;
+  });
+  
+  document.getElementById("weeklyStats").innerHTML = html;
+}
+
+function showWeeklyStatsDetail() {
+  let user = users[currentUser];
+  let modal = document.getElementById("statsModal");
+  
+  // Calculate comprehensive stats
+  let today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+  let todayMinutes = user.weeklyData[today] || 0;
+  let weekTotal = Object.values(user.weeklyData).reduce((a,b) => a+b, 0);
+  
+  // Get this week's session data
+  let thisWeekSessions = (user.sessionHistory || []).filter(session => {
+    let sessionDate = new Date(session.date);
+    let weekStart = new Date();
+    weekStart.setDate(weekStart.getDate() - weekStart.getDay()); // Start of week (Sunday)
+    weekStart.setHours(0,0,0,0);
+    return sessionDate >= weekStart;
+  });
+  
+  let weekTasksCompleted = thisWeekSessions.length;
+  let weekAvgSession = weekTasksCompleted > 0 ? Math.round(weekTotal / weekTasksCompleted) : 0;
+  
+  // Get yesterday's data
+  let yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  let yesterdayStr = yesterday.toLocaleDateString('en-US', { weekday: 'long' });
+  let yesterdayMinutes = user.weeklyData[yesterdayStr] || 0;
+  
+  // Monthly data
+  let currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM
+  let monthlyTotal = user.monthlyData ? (user.monthlyData[currentMonth] || 0) : 0;
+  
+  // Last month
+  let lastMonth = new Date();
+  lastMonth.setMonth(lastMonth.getMonth() - 1);
+  let lastMonthStr = lastMonth.toISOString().slice(0, 7);
+  let lastMonthTotal = user.monthlyData ? (user.monthlyData[lastMonthStr] || 0) : 0;
+  
+  // Get recent goals and tasks
+  let activeGoals = (user.goals || []).filter(g => !g.completed).length;
+  let completedGoals = (user.goals || []).filter(g => g.completed).length;
+  let pendingTasks = (user.tasks || []).filter(t => !t.completed).length;
+  let completedTasks = user.completedTasks || 0;
+  
+  let html = `<div class="stats-tabs">
+    <div class="tab-buttons">
+      <button onclick="showStatsTab('daily')" class="tab-btn active" id="dailyTab">📅 Daily</button>
+      <button onclick="showStatsTab('weekly')" class="tab-btn" id="weeklyTab">📊 Weekly</button>
+      <button onclick="showStatsTab('monthly')" class="tab-btn" id="monthlyTab">📈 Monthly</button>
+    </div>
+    
+    <div id="dailyStats" class="stats-content active">
+      <h3>Today's Activity</h3>
+      <div class="daily-overview">
+        <div class="stat-card">
+          <div class="stat-value">${todayMinutes}m</div>
+          <div class="stat-label">Study Time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${user.sessionsCompleted || 0}</div>
+          <div class="stat-label">Sessions Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${pendingTasks}</div>
+          <div class="stat-label">Pending Tasks</div>
+        </div>
+      </div>
+      
+      <div class="comparison">
+        <span class="comparison-label">vs Yesterday:</span>
+        <span class="comparison-value ${todayMinutes > yesterdayMinutes ? 'positive' : todayMinutes < yesterdayMinutes ? 'negative' : 'neutral'}">
+          ${todayMinutes > yesterdayMinutes ? '↗️ +' : todayMinutes < yesterdayMinutes ? '↘️ ' : '➡️ '}
+          ${Math.abs(todayMinutes - yesterdayMinutes)}m study time
+        </span>
+      </div>
+      
+      <div class="daily-breakdown">
+        <h4>This Week's Progress:</h4>
+        ${Object.entries(user.weeklyData).map(([day, minutes]) => 
+          `<div class="daily-item ${day === today ? 'today' : ''}">
+            <span>${day.slice(0,3)}</span>
+            <div class="daily-bar">
+              <div class="daily-fill" style="width: ${Math.min((minutes/120)*100, 100)}%"></div>
+            </div>
+            <span>${minutes}m</span>
+          </div>`
+        ).join('')}
+      </div>
+      
+      <div class="activity-summary">
+        <h4>Today's Achievements:</h4>
+        <div class="activity-grid">
+          <div class="activity-item">
+            <span class="activity-icon">🎯</span>
+            <span>${user.streak} day streak</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-icon">📚</span>
+            <span>${(user.minutes / 60).toFixed(1)}h total study</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-icon">✅</span>
+            <span>${completedTasks} tasks done</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-icon">🎵</span>
+            <span>${user.musicSessions || 0} music sessions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="weeklyStatsContent" class="stats-content">
+      <h3>This Week's Activity</h3>
+      <div class="weekly-overview">
+        <div class="stat-card large">
+          <div class="stat-value">${weekTotal}m</div>
+          <div class="stat-label">Total Study Time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${weekTasksCompleted}</div>
+          <div class="stat-label">Sessions Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${weekAvgSession}m</div>
+          <div class="stat-label">Avg Session</div>
+        </div>
+      </div>
+      
+      <div class="weekly-breakdown">
+        <h4>Daily Study Breakdown:</h4>
+        ${Object.entries(user.weeklyData).map(([day, minutes]) => {
+          let percentage = Math.min((minutes / 120) * 100, 100);
+          let sessionsToday = thisWeekSessions.filter(s => s.day === day).length;
+          return `<div class="weekly-item">
+            <div class="weekly-day">${day}</div>
+            <div class="weekly-bar">
+              <div class="weekly-fill" style="width: ${percentage}%"></div>
+            </div>
+            <div class="weekly-details">
+              <div class="weekly-minutes">${minutes}m</div>
+              <div class="weekly-sessions">${sessionsToday} sessions</div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+      
+      <div class="weekly-goals">
+        <h4>Weekly Goals Progress:</h4>
+        <div class="goal-progress">
+          <div class="goal-item">
+            <span>Study Goal (10h):</span>
+            <div class="goal-bar">
+              <div class="goal-fill" style="width: ${Math.min((weekTotal/600)*100, 100)}%"></div>
+            </div>
+            <span>${Math.round((weekTotal/600)*100)}%</span>
+          </div>
+          <div class="goal-item">
+            <span>Session Goal (15 sessions):</span>
+            <div class="goal-bar">
+              <div class="goal-fill" style="width: ${Math.min((weekTasksCompleted/15)*100, 100)}%"></div>
+            </div>
+            <span>${Math.round((weekTasksCompleted/15)*100)}%</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="weekly-insights">
+        <h4>Weekly Insights:</h4>
+        <div class="insights-list">
+          <div class="insight-item">
+            <span class="insight-icon">🔥</span>
+            <span>Best study day: ${Object.entries(user.weeklyData).reduce((a,b) => a[1] > b[1] ? a : b)[0]} (${Object.entries(user.weeklyData).reduce((a,b) => a[1] > b[1] ? a : b)[1]}m)</span>
+          </div>
+          <div class="insight-item">
+            <span class="insight-icon">⏰</span>
+            <span>Most productive time: ${getMostProductiveTime(thisWeekSessions)}</span>
+          </div>
+          <div class="insight-item">
+            <span class="insight-icon">📈</span>
+            <span>Weekly improvement: ${weekTotal > 0 ? '+' + Math.round((weekTotal / 7) * 100) / 100 + 'm/day avg' : 'Start studying!'}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="monthlyStats" class="stats-content">
+      <h3>Monthly Overview</h3>
+      <div class="monthly-overview">
+        <div class="stat-card large">
+          <div class="stat-value">${monthlyTotal}m</div>
+          <div class="stat-label">This Month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${lastMonthTotal}m</div>
+          <div class="stat-label">Last Month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value ${monthlyTotal > lastMonthTotal ? 'positive' : monthlyTotal < lastMonthTotal ? 'negative' : 'neutral'}">
+            ${monthlyTotal > lastMonthTotal ? '+' : ''}${monthlyTotal - lastMonthTotal}m
+          </div>
+          <div class="stat-label">Difference</div>
+        </div>
+      </div>
+      
+      <div class="monthly-goals">
+        <h4>Monthly Goals Progress</h4>
+        <div class="goal-item">
+          <span>Study Goal (40h):</span>
+          <div class="goal-bar">
+            <div class="goal-fill" style="width: ${Math.min((monthlyTotal/2400)*100, 100)}%"></div>
+          </div>
+          <span>${Math.round((monthlyTotal/2400)*100)}%</span>
+        </div>
+        <div class="goal-item">
+          <span>Consistency Goal (25 days):</span>
+          <div class="goal-bar">
+            <div class="goal-fill" style="width: ${Math.min((user.streak/25)*100, 100)}%"></div>
+          </div>
+          <span>${Math.round((user.streak/25)*100)}%</span>
+        </div>
+      </div>
+      
+      <div class="monthly-breakdown">
+        <h4>Monthly Activity:</h4>
+        <div class="monthly-stats">
+          <div class="monthly-stat">
+            <span>Total Sessions:</span>
+            <span>${user.totalSessions || 0}</span>
+          </div>
+          <div class="monthly-stat">
+            <span>Goals Completed:</span>
+            <span>${user.goalsCompleted || 0}</span>
+          </div>
+          <div class="monthly-stat">
+            <span>Tasks Completed:</span>
+            <span>${user.completedTasks || 0}</span>
+          </div>
+          <div class="monthly-stat">
+            <span>Longest Session:</span>
+            <span>${user.longestSession || 0}m</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  
+  document.getElementById("modalStatsTitle").innerText = "📈 Comprehensive Activity Report";
+  document.getElementById("modalStatsContent").innerHTML = html;
+  if (modal) {
+    modal.classList.add("show");
+  }
+}
+
+function getMostProductiveTime(sessions) {
+  if (sessions.length === 0) return "No sessions yet";
+  
+  let hourCounts = {};
+  sessions.forEach(session => {
+    let hour = session.hour;
+    hourCounts[hour] = (hourCounts[hour] || 0) + 1;
+  });
+  
+  let bestHour = Object.entries(hourCounts).reduce((a,b) => a[1] > b[1] ? a : b)[0];
+  let hour12 = bestHour > 12 ? bestHour - 12 : bestHour;
+  let ampm = bestHour >= 12 ? 'PM' : 'AM';
+  return `${hour12}:00 ${ampm}`;
+}
+
+function showStatsTab(tabName) {
+  // Hide all tabs
+  document.querySelectorAll('.stats-content').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  
+  // Show selected tab
+  document.getElementById(tabName + 'Stats').classList.add('active');
+  document.getElementById(tabName + 'Tab').classList.add('active');
+}
+
+// ======================= TASK MANAGEMENT =======================
+
+function addTask() {
+  let t = taskInput.value.trim();
+  let p = prioritySelect.value;
+  let c = document.getElementById("taskCategory").value;
+  let d = document.getElementById("taskDueDate").value;
+
+  if (!t) {
+    showNotification("Please enter a task!", "error");
+    return;
+  }
+
+  if (!users[currentUser].tasks) users[currentUser].tasks = [];
+  
+  users[currentUser].tasks.push({
+    text: t,
+    priority: p,
+    category: c,
+    dueDate: d,
+    completed: false,
+    id: Date.now()
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+  loadTasks();
+  taskInput.value = "";
+  prioritySelect.value = "medium";
+  document.getElementById("taskCategory").value = "homework";
+  document.getElementById("taskDueDate").value = "";
+  showNotification("Task added! 📝", "success");
+}
+
+function loadTasks() {
+  let user = users[currentUser];
+  if (!user.tasks) user.tasks = [];
+
+  let filteredTasks = user.tasks;
+  
+  // Apply filters
+  if (currentTaskFilter !== "all") {
+    if (currentTaskFilter === "overdue") {
+      let today = new Date().toISOString().split('T')[0];
+      filteredTasks = user.tasks.filter(task => 
+        typeof task === "object" && task.dueDate && task.dueDate < today && !task.completed
+      );
+    } else {
+      filteredTasks = user.tasks.filter(task => 
+        typeof task === "object" && task.category === currentTaskFilter
+      );
+    }
+  }
+
+  let html = "";
+  filteredTasks.forEach(task => {
+    let taskClass = typeof task === "string" ? "medium-priority" : task.priority + "-priority";
+    let taskText = typeof task === "string" ? task : task.text;
+    let completed = typeof task === "string" ? false : task.completed;
+    let taskId = typeof task === "string" ? Math.random() : task.id;
+    let priorityBadge = typeof task === "string" ? "" : `<span class="priority-badge ${task.priority}">${task.priority.toUpperCase()}</span>`;
+    let categoryEmoji = typeof task === "string" ? "" : task.category.split(" ")[0];
+    let dueDate = typeof task === "string" ? "" : (task.dueDate ? `<span style="font-size: 12px; color: #999; margin-left: 8px;">📅 ${task.dueDate}</span>` : "");
+
+    html += `<li class="task-item ${taskClass} ${completed ? 'completed' : ''}">
+      <span class="task-text">${priorityBadge}${categoryEmoji} ${taskText}${dueDate}</span>
+      <div class="task-buttons">
+        <button class="task-btn complete" onclick="completeTask(${taskId})" ${completed ? 'disabled' : ''}>✓</button>
+        <button class="task-btn delete" onclick="deleteTask(${taskId})">✕</button>
+      </div>
+    </li>`;
+  });
+
+  document.getElementById("taskList").innerHTML = html || "<p style='text-align: center; color: #999;'>No tasks yet. Add one to get started!</p>";
+}
+
+function completeTask(id) {
+  let task = users[currentUser].tasks.find(t => (typeof t === "string" ? false : t.id === id));
+  if (task && typeof task === "object") {
+    task.completed = true;
+    users[currentUser].completedTasks = (users[currentUser].completedTasks || 0) + 1;
+  }
+  localStorage.setItem("users", JSON.stringify(users));
+  loadTasks();
+  updateDashboard();
+  showNotification("Task completed! 🎉", "success");
+}
+
+function deleteTask(id) {
+  users[currentUser].tasks = users[currentUser].tasks.filter(t => (typeof t === "string" ? true : t.id !== id));
+  localStorage.setItem("users", JSON.stringify(users));
+  loadTasks();
+  showNotification("Task deleted! 🗑️", "info");
+}
+
+// ======================= GOAL MANAGEMENT =======================
+
+function addGoal() {
+  let g = goalInput.value.trim();
+  let target = parseInt(goalTarget.value);
+
+  if (!g) {
+    showNotification("Please enter a goal!", "error");
+    return;
+  }
+
+  if (!users[currentUser].goals) users[currentUser].goals = [];
+
+  users[currentUser].goals.push({
+    text: g,
+    target: target,
+    current: 0,
+    id: Date.now()
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+  loadGoals();
+  goalInput.value = "";
+  showNotification("Goal created! 🎯", "success");
+}
+
+function loadGoals() {
+  let user = users[currentUser];
+  if (!user.goals) user.goals = [];
+
+  let html = "";
+  user.goals.forEach(goal => {
+    let progress = (goal.current / goal.target) * 100;
+    html += `<div class="goal-item">
+      <h4>${goal.text}</h4>
+      <p>${goal.current} / ${goal.target} minutes</p>
+      <div class="goal-progress">
+        <div class="goal-progress-bar" style="width: ${progress}%">${Math.round(progress)}%</div>
+      </div>
+      <button class="task-btn delete" onclick="deleteGoal(${goal.id})">Delete</button>
+    </div>`;
+  });
+
+  document.getElementById("goalsList").innerHTML = html || "<p style='text-align: center; color: #999;'>No goals yet. Create one to stay motivated!</p>";
+}
+
+function deleteGoal(id) {
+  users[currentUser].goals = users[currentUser].goals.filter(g => g.id !== id);
+  localStorage.setItem("users", JSON.stringify(users));
+  loadGoals();
+  showNotification("Goal deleted!", "info");
+}
+
+// ======================= LEADERBOARD =======================
+
+function loadLeaderboard() {
+  let arr = Object.entries(users);
+  arr.sort((a, b) => b[1].minutes - a[1].minutes);
+
+  let html = "";
+  arr.forEach((u, i) => {
+    let medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : "";
+    html += `<tr>
+      <td>${medal} ${i + 1}</td>
+      <td>${u[0]}</td>
+      <td>${u[1].minutes} mins</td>
+      <td>${u[1].streak}</td>
+      <td>${u[1].minutes * 2}</td>
+    </tr>`;
+  });
+
+  document.getElementById("leaderboard").innerHTML = html;
+}
+
+// ======================= STATISTICS PAGE =======================
+
+function updateStatsPage() {
+  let user = users[currentUser];
+  let avgDaily = (user.minutes / Math.max(user.streak, 1)).toFixed(1);
+  
+  let html = `
+    <div class="stat-box">
+      <div class="stat-value">${user.minutes}</div>
+      <div class="stat-label">Total Minutes</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">${user.streak}</div>
+      <div class="stat-label">Current Streak</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">${user.minutes * 2}</div>
+      <div class="stat-label">Total Points</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">${avgDaily}</div>
+      <div class="stat-label">Avg Per Day</div>
+    </div>
+  `;
+  
+  document.getElementById("myStats").innerHTML = html;
+}
+
+// ======================= SETTINGS =======================
+
+function updateSettings() {
+  let user = users[currentUser];
+  document.getElementById("settingsUsername").innerText = currentUser;
+  document.getElementById("settingsTotalTime").innerText = (user.minutes / 60).toFixed(1);
+  document.getElementById("settingsStreak").innerText = user.streak;
+  document.getElementById("settingsTasks").innerText = user.completedTasks || 0;
+}
+
+function resetProgress() {
+  if (confirm("Are you sure? This will delete all your data!")) {
+    delete users[currentUser];
+    localStorage.setItem("users", JSON.stringify(users));
+    currentUser = null;
+    location.reload();
+  }
+}
+
+// ======================= NOTIFICATIONS =======================
+
+function showNotification(message, type = "info") {
+  let notification = document.createElement("div");
+  notification.className = `notification ${type}`;
+  notification.innerText = message;
+  document.getElementById("notificationContainer").appendChild(notification);
+
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
+// ======================= AI & EXTERNAL LINKS =======================
+
+function openAI(url) {
+  window.open(url, "_blank");
+}
+
+// ======================= INPUT VALIDATION =======================
+
+document.getElementById("password").addEventListener("input", function() {
+  checkPasswordStrength(this.value);
+});
+
+document.getElementById("minutes").addEventListener("change", function() {
+  updateTimerDisplay();
+});
+
+// ======================= MUSIC & MEDIA FEATURES =======================
+
+const musicUrls = {
+  "silence": "",
+  "focus": "https://www.youtube.com/embed/videoseries?list=PLhJqkohkH29MrXG0BzspUkQ9XqP0lKnuq",
+  "telugu_love": "https://www.youtube.com/embed/videoseries?list=PLhJqkohkH29MrXG0BzspUkQ9XqP0lKnuq",
+  "romantic": "https://www.youtube.com/embed/jgpXW2v11e8",
+  "lofibeats": "https://www.youtube.com/embed/sL9_f0rFpFY",
+  "classical": "https://www.youtube.com/embed/O1UF85dVpT4",
+  "ambient": "https://www.youtube.com/embed/pZTjcAIDSFo",
+  "telugu_playlist": "https://www.youtube.com/embed/VkmxxJx1Z9M",
+  "user_focus_music": "https://www.youtube.com/embed/WPni755-Krg"
+};
+
+const musicInfo = {
+  "silence": "🔇 Silence Mode - Pure Focus",
+  "focus": "🎵 Focus & Study Music - Concentration Boost",
+  "telugu_love": "💕 Tamil & Telugu Love Songs - Romantic Playlist", 
+  "romantic": "💖 Romantic Music - English Love Songs!",
+  "lofibeats": "🎧 Lo-Fi Hip Hop Beats - Smooth Vibes",
+  "classical": "🎹 Classical Music - Elegant & Calming",
+  "ambient": "🌌 Ambient Sounds - Relaxing Meditation Music",
+  "telugu_playlist": "🎵 Telugu Study Songs - Melodious Focus",
+  "user_focus_music": "🎵 Your Custom Focus Music - Ultimate Concentration"
+};
+
+// Telugu Songs Database
+const teluguSongs = [
+  {
+    "title": "Inkem Inkem Inkem Kaavaale",
+    "movie": "Geetha Govindam",
+    "type": "romantic",
+    "youtube": "https://www.youtube.com/embed/VkmxxJx1Z9M",
+    "embedId": "VkmxxJx1Z9M"
+  },
+  {
+    "title": "Samajavaragamana",
+    "movie": "Ala Vaikunthapurramuloo",
+    "type": "melody",
+    "youtube": "https://www.youtube.com/embed/Vg6N7z3R2nE",
+    "embedId": "Vg6N7z3R2nE"
+  },
+  {
+    "title": "Pillaa Raa",
+    "movie": "RX 100",
+    "type": "romantic",
+    "youtube": "https://www.youtube.com/embed/2mDCVzruYzQ",
+    "embedId": "2mDCVzruYzQ"
+  },
+  {
+    "title": "Priyathama Priyathama",
+    "movie": "Majili",
+    "type": "emotional",
+    "youtube": "https://www.youtube.com/embed/3Q0X7Xj6m4E",
+    "embedId": "3Q0X7Xj6m4E"
+  },
+  {
+    "title": "Neeli Neeli Aakasam",
+    "movie": "30 Rojullo Preminchadam Ela",
+    "type": "study",
+    "youtube": "https://www.youtube.com/embed/1WZ0U9z5XzU",
+    "embedId": "1WZ0U9z5XzU"
+  },
+  {
+    "title": "Oh Sita Hey Rama",
+    "movie": "Sita Ramam",
+    "type": "soft",
+    "youtube": "https://www.youtube.com/embed/QJx1z0w1E0c",
+    "embedId": "QJx1z0w1E0c"
+  },
+  {
+    "title": "Undiporaadhey",
+    "movie": "Hushaaru",
+    "type": "lofi",
+    "youtube": "https://www.youtube.com/embed/8mJrF6h7bS4",
+    "embedId": "8mJrF6h7bS4"
+  },
+  {
+    "title": "Arerey Manasa",
+    "movie": "Falaknuma Das",
+    "type": "chill",
+    "youtube": "https://www.youtube.com/embed/0xRz5d6G7yM",
+    "embedId": "0xRz5d6G7yM"
+  }
+];
+
+// Telugu Songs Functions
+function loadTeluguSongs() {
+  let container = document.getElementById("teluguSongsList");
+  container.innerHTML = "";
+  
+  teluguSongs.forEach(song => {
+    let songElement = document.createElement("div");
+    songElement.style.cssText = `
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    `;
+    
+    songElement.innerHTML = `
+      <div style="font-weight: bold; color: #667eea; margin-bottom: 5px;">${song.title}</div>
+      <div style="font-size: 12px; color: #666; margin-bottom: 5px;">${song.movie}</div>
+      <div style="font-size: 11px; color: #999;">${song.type}</div>
+    `;
+    
+    songElement.onmouseover = () => {
+      songElement.style.transform = "scale(1.05)";
+      songElement.style.boxShadow = "0 4px 12px rgba(102, 126, 234, 0.2)";
+    };
+    
+    songElement.onmouseout = () => {
+      songElement.style.transform = "scale(1)";
+      songElement.style.boxShadow = "none";
+    };
+    
+    songElement.onclick = () => playTeluguSong(song);
+    
+    container.appendChild(songElement);
+  });
+}
+
+function playTeluguSong(song) {
+  // Track music usage for achievements
+  if (users[currentUser]) {
+    users[currentUser].musicSessions = (users[currentUser].musicSessions || 0) + 1;
+    // Track Telugu song plays
+    users[currentUser].teluguSongsPlayed = (users[currentUser].teluguSongsPlayed || 0) + 1;
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+  
+  // Create modal with embedded player
+  let modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  `;
+  
+  let content = document.createElement('div');
+  content.style.cssText = `
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 650px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  `;
+  
+  content.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <div>
+        <h3 style="margin: 0; color: #667eea;">${song.title}</h3>
+        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">${song.movie} • ${song.type}</p>
+      </div>
+      <button onclick="this.closest('div').parentElement.remove()" style="background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+    </div>
+    <iframe width="100%" height="400" src="${song.youtube}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" style="border-radius: 10px;"></iframe>
+    <p style="font-size: 12px; color: #999; margin-top: 10px; text-align: center;">🎵 Enjoy your Telugu study session!</p>
+  `;
+  
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+  
+  // Close on click outside
+  modal.onclick = function(e) {
+    if (e.target === modal) modal.remove();
+  };
+  
+  showNotification(`🎵 Now playing: ${song.title}`, "success");
+}
+
+// Web Audio API - Create simple notification sounds
+function playNotificationSound(type = "success") {
+  try {
+    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let oscillator = audioContext.createOscillator();
+    let gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    if (type === "success") {
+      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+      oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
+    } else if (type === "error") {
+      oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+      oscillator.frequency.setValueAtTime(200, audioContext.currentTime + 0.1);
+    }
+    
+    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.1);
+  } catch(e) {
+    console.log("Audio not available");
+  }
+}
+
+function loadMusicPlaylist() {
+  let category = document.getElementById("musicCategory").value;
+  users[currentUser].mediaPref = category;
+  localStorage.setItem("users", JSON.stringify(users));
+  
+  // Show/hide custom music section
+  let customSection = document.getElementById("customMusicSection");
+  let teluguSection = document.getElementById("teluguSongsSection");
+  
+  if (category === "custom") {
+    customSection.style.display = "block";
+    teluguSection.style.display = "none";
+    document.getElementById("currentMusicInfo").innerText = "🎵 Custom Music - Add your own YouTube video";
+  } else if (category === "telugu_playlist") {
+    customSection.style.display = "none";
+    teluguSection.style.display = "block";
+    loadTeluguSongs();
+    document.getElementById("currentMusicInfo").innerText = musicInfo[category] || 'Music';
+  } else {
+    customSection.style.display = "none";
+    teluguSection.style.display = "none";
+    document.getElementById("currentMusicInfo").innerText = musicInfo[category] || 'Music';
+  }
+  
+  showNotification(`🎵 ${musicInfo[category] || 'Custom Music'}`, "success");
+  playNotificationSound("success");
+}
+
+function playYouTubeMusic() {
+  let category = document.getElementById("musicCategory").value;
+  
+  // For Telugu playlist, show song selection modal instead
+  if (category === "telugu_playlist") {
+    showTeluguPlaylistModal();
+    return;
+  }
+  
+  // For custom music, check if URL is saved
+  if (category === "custom") {
+    if (!users[currentUser].customMusic || !users[currentUser].customMusic.url) {
+      showNotification("Please save a custom music URL first!", "error");
+      return;
+    }
+  }
+  
+  let url = musicUrls[category];
+  
+  if (!url) {
+    showNotification("🔇 Silence mode - no music playing", "info");
+    return;
+  }
+  
+  // Track music usage for achievements
+  if (users[currentUser]) {
+    users[currentUser].musicSessions = (users[currentUser].musicSessions || 0) + 1;
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+  
+  // Create a modal with embedded player
+  let modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  `;
+  
+  let content = document.createElement('div');
+  content.style.cssText = `
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 650px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  `;
+  
+  let musicTitle = musicInfo[category] || "Custom Music";
+  if (category === "custom" && users[currentUser].customMusic) {
+    musicTitle = users[currentUser].customMusic.title;
+  }
+  
+  content.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <h3 style="margin: 0;">${musicTitle}</h3>
+      <button onclick="this.closest('div').parentElement.remove()" style="background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+    </div>
+    <iframe width="100%" height="400" src="${url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" style="border-radius: 10px;"></iframe>
+    <p style="font-size: 12px; color: #999; margin-top: 10px; text-align: center;">🎵 Music will continue playing in background</p>
+  `;
+  
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+  
+  // Close on click outside
+  modal.onclick = function(e) {
+    if (e.target === modal) modal.remove();
+  };
+  
+  showNotification(`🎵 Now playing ${musicTitle}...`, "success");
+}
+
+function showTeluguPlaylistModal() {
+  // Create modal for Telugu song selection
+  let modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    overflow-y: auto;
+  `;
+  
+  let content = document.createElement('div');
+  content.style.cssText = `
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  `;
+  
+  let songsHTML = teluguSongs.map(song => `
+    <div class="telugu-song-item" onclick="playTeluguSongFromModal('${song.embedId}')" style="
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin: 8px 0;
+      background: #f8f9fa;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    " onmouseover="this.style.background='#e3f2fd'; this.style.borderColor='#667eea'" onmouseout="this.style.background='#f8f9fa'; this.style.borderColor='transparent'">
+      <div style="flex: 1;">
+        <div style="font-weight: bold; color: #667eea; margin-bottom: 3px;">${song.title}</div>
+        <div style="font-size: 13px; color: #666;">${song.movie}</div>
+        <div style="font-size: 11px; color: #999; margin-top: 2px;">${song.type} • Click to play</div>
+      </div>
+      <div style="font-size: 20px;">▶️</div>
+    </div>
+  `).join('');
+  
+  content.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div>
+        <h3 style="margin: 0; color: #667eea;">🎵 Telugu Study Songs</h3>
+        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Choose your favorite Telugu melody for focused studying</p>
+      </div>
+      <button onclick="this.closest('div').parentElement.remove()" style="background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+    </div>
+    <div style="margin-bottom: 15px;">
+      ${songsHTML}
+    </div>
+    <p style="font-size: 12px; color: #999; text-align: center; border-top: 1px solid #eee; padding-top: 15px;">💡 These songs are perfect for concentration and study sessions</p>
+  `;
+  
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+  
+  // Close on click outside
+  modal.onclick = function(e) {
+    if (e.target === modal) modal.remove();
+  };
+}
+
+function saveCustomMusic() {
+  let url = document.getElementById("customMusicUrl").value.trim();
+  
+  if (!url) {
+    showNotification("Please enter a YouTube URL!", "error");
+    return;
+  }
+  
+  // Extract video ID from YouTube URL
+  let videoId = extractYouTubeId(url);
+  if (!videoId) {
+    showNotification("Invalid YouTube URL! Please use a valid YouTube video link.", "error");
+    return;
+  }
+  
+  // Save custom music URL
+  if (!users[currentUser].customMusic) users[currentUser].customMusic = {};
+  users[currentUser].customMusic.url = `https://www.youtube.com/embed/${videoId}`;
+  users[currentUser].customMusic.title = "Your Custom Study Music";
+  localStorage.setItem("users", JSON.stringify(users));
+  
+  // Update music URLs and info
+  musicUrls["custom"] = users[currentUser].customMusic.url;
+  musicInfo["custom"] = "🎵 " + users[currentUser].customMusic.title;
+  
+  document.getElementById("currentMusicInfo").innerText = musicInfo["custom"];
+  showNotification("✅ Custom music saved! Click 'Play on YouTube' to listen.", "success");
+}
+
+function updateMusicVolume() {
+  let volume = document.getElementById("musicVolume").value;
+  document.getElementById("volumeDisplay").innerText = volume + "%";
+  
+  // Save volume preference
+  if (users[currentUser]) {
+    users[currentUser].musicVolume = volume;
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+  
+  // Note: YouTube embed doesn't support direct volume control from parent page
+  // Volume is controlled within the YouTube player itself
+  showNotification(`🔊 Music volume preference saved: ${volume}%`, "info");
+}
+
+function openMusicPortal() {
+  window.open("https://www.youtube.com/results?search_query=study+music+focus+no+copyright", "_blank");
+  showNotification("🎵 Browse more music on YouTube", "info");
+}
+
+// ======================= REAL BLOCKING ENFORCEMENT =======================
+
+const blockedDomains = {
+  facebook: ["facebook.com", "fb.com", "m.facebook.com"],
+  twitter: ["twitter.com", "x.com", "t.co"],
+  instagram: ["instagram.com", "m.instagram.com"],
+  youtube: ["youtube.com", "youtu.be", "m.youtube.com"],
+  tiktok: ["tiktok.com", "m.tiktok.com", "vt.tiktok.com"],
+  reddit: ["reddit.com", "m.reddit.com"],
+  discord: ["discord.com", "discordapp.com"],
+  snapchat: ["snapchat.com", "snap.com"]
+};
+
+let blockingEnabled = false;
+let blockedAttempts = 0;
+
+// Initialize link blocking - intercept all link clicks
+function initializeRealBlocking() {
+  // Intercept all link clicks
+  document.addEventListener('click', function(e) {
+    if (!blockingEnabled) return;
+    
+    let link = e.target.closest('a');
+    if (!link) return;
+    
+    let href = link.getAttribute('href') || '';
+    
+    // Skip if it's to the same page or internal links
+    if (href.startsWith('#') || href.startsWith('/') || href === '') return;
+    
+    // Check if link is blocked
+    if (isUrlBlocked(href, getAppFromUrl(href))) {
+      e.preventDefault();
+      e.stopPropagation();
+      handleBlockedAttempt(getAppFromUrl(href));
+    }
+  }, true);
+  
+  // Intercept window.open calls
+  const originalOpen = window.open;
+  window.open = function(...args) {
+    if (!blockingEnabled) return originalOpen.apply(this, args);
+    
+    let url = args[0] || '';
+    if (url && isUrlBlocked(url, getAppFromUrl(url))) {
+      handleBlockedAttempt(getAppFromUrl(url));
+      return null;
+    }
+    return originalOpen.apply(this, args);
+  };
+}
+
+function getAppFromUrl(url) {
+  for (let [app, domains] of Object.entries(blockedDomains)) {
+    for (let domain of domains) {
+      if (url.toLowerCase().includes(domain.toLowerCase())) {
+        return app;
+      }
+    }
+  }
+  return null;
+}
+
+function checkAndBlockSites() {
+  if (!blockingEnabled) return;
+  
+  // Check current URL
+  let currentUrl = window.location.href;
+  let blockedApp = getAppFromUrl(currentUrl);
+  
+  if (blockedApp && users[currentUser].blockedApps[blockedApp]) {
+    handleBlockedAttempt(blockedApp);
+  }
+}
+
+function isUrlBlocked(url, app) {
+  if (!app || !blockedDomains[app]) return false;
+  if (!users[currentUser].blockedApps[app]) return false;
+  
+  for (let domain of blockedDomains[app]) {
+    if (url.toLowerCase().includes(domain.toLowerCase())) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function handleBlockedAttempt(app) {
+  if (!app) return;
+  blockedAttempts++;
+  
+  // Show blocking modal
+  showBlockingModal(app);
+  
+  // Play notification sound and show alert
+  showNotification(`🚫 ${app.toUpperCase()} IS BLOCKED! Stay focused on your studies!`, "error");
+  
+  // Update stats
+  if (!users[currentUser].blockedAttempts) users[currentUser].blockedAttempts = 0;
+  users[currentUser].blockedAttempts++;
+  localStorage.setItem("users", JSON.stringify(users));
+}
+
+function showBlockingModal(app) {
+  let modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  `;
+  
+  let content = document.createElement('div');
+  content.style.cssText = `
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  `;
+  
+  let studied = getStudyTimeToday();
+  
+  content.innerHTML = `
+    <h2 style="color: #e74c3c; margin-top: 0;">🚫 Website Blocked</h2>
+    <p style="font-size: 16px; color: #333; margin: 15px 0;">
+      <strong>${app.toUpperCase()}</strong> is blocked during Focus Mode
+    </p>
+    <p style="color: #666; font-size: 14px;">
+      You've studied for <strong>${studied} minutes</strong> today
+    </p>
+    <p style="color: #999; font-size: 13px; margin: 20px 0;">
+      ✨ Keep your focus! Block unlocks when you're done studying.
+    </p>
+    <button onclick="this.closest('div').parentElement.remove()" style="
+      padding: 10px 30px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    ">I Understand</button>
+  `;
+  
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+  
+  // Auto close after 5 seconds
+  setTimeout(() => {
+    if (modal.parentElement) modal.remove();
+  }, 5000);
+}
+
+// ======================= STUDY TIME-BASED FEATURES =======================
+
+function getStudyTimeToday() {
+  let today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+  let todayMinutes = users[currentUser].weeklyData[today] || 0;
+  return todayMinutes;
+}
+
+function getAppAccessBasedOnStudy() {
+  let studied = getStudyTimeToday();
+  let rewards = [];
+  
+  if (studied >= 60) rewards.push("🎉 You've studied 1+ hour! Reward unlocked!");
+  if (studied >= 120) rewards.push("🏆 2+ hours studied! Premium features available!");
+  if (studied >= 180) rewards.push("👑 3+ hours studied! You're unstoppable!");
+  
+  return rewards;
+}
+
+function showStudyRewards() {
+  let studied = getStudyTimeToday();
+  let rewards = getAppAccessBasedOnStudy();
+  
+  let message = `📊 Today's Study Stats:\n\n✅ You've studied: ${studied} minutes`;
+  
+  if (rewards.length > 0) {
+    message += "\n\n" + rewards.join("\n");
+  } else if (studied < 30) {
+    message += "\n\n💡 Study for 30+ minutes to earn rewards!";
+  }
+  
+  showNotification(message, "info");
+}
+
+// ======================= FOCUS MODE AUTO-UNLOCK =======================
+
+function enableFocusModeBasedOnProgress() {
+  let studied = getStudyTimeToday();
+  let streak = users[currentUser].streak;
+  
+  if (streak >= 7 || studied >= 60) {
+    return true; // User has earned Focus Mode
+  }
+  return false;
+}
+
+// ======================= APP BLOCKER FEATURES =======================
+
+function initializeAppBlocker() {
+  if (!users[currentUser].blockedApps) {
+    users[currentUser].blockedApps = {
+      facebook: false,
+      twitter: false,
+      instagram: false,
+      youtube: false,
+      tiktok: false,
+      reddit: false,
+      discord: false,
+      snapchat: false
+    };
+  }
+  loadAppBlocker();
+  updateFocusModeStatus();
+}
+
+function loadAppBlocker() {
+  let apps = users[currentUser].blockedApps;
+  let html = "";
+  
+  const appIcons = {
+    facebook: "📘",
+    twitter: "𝕏",
+    instagram: "📷",
+    youtube: "📺",
+    tiktok: "🎵",
+    reddit: "🤖",
+    discord: "💬",
+    snapchat: "👻"
+  };
+  
+  Object.entries(apps).forEach(([app, isBlocked]) => {
+    let appName = app.charAt(0).toUpperCase() + app.slice(1);
+    let status = isBlocked && mediaBlockerActive ? "active" : "";
+    let disabled = mediaBlockerActive ? "style='pointer-events: none; opacity: 0.5;'" : "";
+    html += `<div class="app-blocker-toggle ${status}" onclick="toggleAppBlock('${app}')" ${disabled}>
+      <div style="font-size: 24px; margin-bottom: 5px;">${appIcons[app] || '📱'}</div>
+      <div style="font-weight: bold; font-size: 12px;">${appName}</div>
+      <div style="font-size: 10px; margin-top: 3px;">${isBlocked ? '🔒 Blocked' : '🔓 Allowed'}</div>
+    </div>`;
+  });
+  
+  document.getElementById("appBlockerList").innerHTML = html;
+}
+
+function toggleAppBlock(app) {
+  if (mediaBlockerActive) {
+    showNotification("❌ Disable Focus Mode first to change settings", "error");
+    return;
+  }
+  
+  users[currentUser].blockedApps[app] = !users[currentUser].blockedApps[app];
+  localStorage.setItem("users", JSON.stringify(users));
+  loadAppBlocker();
+  
+  let status = users[currentUser].blockedApps[app] ? "🔒 Blocked" : "🔓 Unblocked";
+  showNotification(`${app.toUpperCase()} ${status}`, "info");
+}
+
+function toggleFocusMode() {
+  if (!users[currentUser].blockedApps) {
+    initializeAppBlocker();
+  }
+  
+  mediaBlockerActive = !mediaBlockerActive;
+  blockingEnabled = mediaBlockerActive;
+  users[currentUser].focusModeActive = mediaBlockerActive;
+  localStorage.setItem("users", JSON.stringify(users));
+  
+  updateFocusModeStatus();
+  loadAppBlocker();
+  
+  if (mediaBlockerActive) {
+    // Start music
+    let preference = users[currentUser].mediaPref || "focus";
+    document.getElementById("musicCategory").value = preference;
+    loadMusicPlaylist();
+    playYouTubeMusic();
+    
+    // Get blocked apps count
+    let blockedCount = Object.entries(users[currentUser].blockedApps)
+      .filter(([app, isBlocked]) => isBlocked)
+      .length;
+    
+    showNotification(`🔒 Focus Mode ON - ${blockedCount} apps BLOCKED! No distractions!`, "success");
+    
+    // Start monitoring every 500ms
+    window.blockCheckInterval = setInterval(checkAndBlockSites, 500);
+  } else {
+    // Stop blocking and music
+    blockingEnabled = false;
+    showNotification("🔓 Focus Mode OFF - Apps are now accessible", "info");
+    if (window.blockCheckInterval) {
+      clearInterval(window.blockCheckInterval);
+    }
+  }
+}
+
+function updateFocusModeStatus() {
+  let statusDiv = document.getElementById("focusModeStatus");
+  let btn = document.getElementById("focusModeBtn");
+  let user = users[currentUser];
+  let todayMinutes = getStudyTimeToday();
+  
+  if (mediaBlockerActive) {
+    let blockedCount = Object.entries(user.blockedApps)
+      .filter(([app, isBlocked]) => isBlocked)
+      .length;
+    
+    statusDiv.innerHTML = `
+      <span style="color: #51cf66; font-weight: bold;">✅ Focus Mode is ACTIVE</span>
+      <p style="font-size: 12px; color: #999; margin-top: 10px;">
+        🔒 ${blockedCount} apps blocked • 🎵 Music playing
+      </p>
+    `;
+    btn.innerHTML = "🔓 Disable Focus Mode";
+    btn.style.background = "#ff6b6b";
+  } else {
+    let recommendedApps = Math.min(Object.values(user.blockedApps).filter(b => b).length, 3);
+    let recommendation = "";
+    
+    if (user.streak >= 30) {
+      recommendation = `<p style="color: #51cf66; font-weight: bold; margin-bottom: 10px;">👑 Legendary Streak! You've mastered Focus Mode!</p>`;
+    } else if (user.streak >= 7) {
+      recommendation = `<p style="color: #667eea; font-weight: bold; margin-bottom: 10px;">🔥 Week-long streak! Maintain it with Focus Mode!</p>`;
+    } else if (user.streak >= 3) {
+      recommendation = `<p style="color: #764ba2; font-weight: bold; margin-bottom: 10px;">⚡ Great start! Use Focus Mode to build your streak!</p>`;
+    } else {
+      recommendation = `<p style="color: #667eea; font-weight: bold; margin-bottom: 10px;">💡 Start your first streak with Focus Mode!</p>`;
+    }
+    
+    statusDiv.innerHTML = recommendation + `
+      <p style="font-size: 12px; color: #999;">
+        📊 Today: ${todayMinutes} min studied
+      </p>
+      <p style="color: #999; font-size: 11px; margin-top: 5px;">
+        Focus Mode is inactive
+      </p>
+    `;
+    btn.innerHTML = "🔒 Enable Focus Mode";
+    btn.style.background = "#667eea";
+  }
+  
+  // Restore music volume
+  let savedVolume = users[currentUser].musicVolume || 50;
+  document.getElementById("musicVolume").value = savedVolume;
+  updateMusicVolume();
+  
+  // Update stats if element exists
+  let statsBlocked = document.getElementById("statsBlocked");
+  if (statsBlocked) {
+    let blockedCount = Object.entries(user.blockedApps)
+      .filter(([app, isBlocked]) => isBlocked)
+      .length;
+    statsBlocked.innerText = blockedCount;
+  }
+}
+
+// ======================= ADVANCED ANALYTICS & PERFORMANCE =======================
+
+function generatePerformanceReport() {
+  let user = users[currentUser];
+  let sessionHistory = user.sessionHistory || [];
+  
+  let report = {
+    totalSessions: sessionHistory.length,
+    totalMinutes: user.minutes,
+    currentStreak: user.streak,
+    avgSessionLength: sessionHistory.length > 0 ? Math.round(user.minutes / sessionHistory.length) : 0,
+    tasksCompleted: user.completedTasks,
+    goalsCreated: (user.goals || []).length,
+    bestDay: getBestStudyDay(user),
+    productivityScore: calculateProductivityScore(user),
+    weeklyAverage: calculateWeeklyAverage(user)
+  };
+  
+  return report;
+}
+
+function getBestStudyDay(user) {
+  let best = {day: "", minutes: 0};
+  Object.entries(user.weeklyData || {}).forEach(([day, minutes]) => {
+    if (minutes > best.minutes) best = {day, minutes};
+  });
+  return best;
+}
+
+function calculateProductivityScore(user) {
+  let score = 0;
+  if (user.minutes >= 60) score += 20;
+  if (user.minutes >= 300) score += 20;
+  if (user.minutes >= 600) score += 20;
+  if (user.streak >= 7) score += 20;
+  if (user.completedTasks >= 10) score += 10;
+  if ((user.goals || []).length >= 3) score += 10;
+  return Math.min(score, 100);
+}
+
+function calculateWeeklyAverage(user) {
+  let total = Object.values(user.weeklyData || {}).reduce((a, b) => a + b, 0);
+  return Math.round(total / 7);
+}
+
+function showPerformanceAnalytics() {
+  let report = generatePerformanceReport();
+  let modal = document.getElementById("statsModal");
+  
+  let html = `<h2 style="text-align: center; margin-bottom: 20px;">📈 Performance Analytics</h2>`;
+  
+  html += `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0;">
+    <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+      <p style="font-size: 12px; opacity: 0.9; margin: 0;">Total Study Time</p>
+      <h3 style="font-size: 24px; margin: 5px 0;">${report.totalMinutes}m</h3>
+    </div>
+    <div style="background: linear-gradient(135deg, #51cf66, #37b24d); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+      <p style="font-size: 12px; opacity: 0.9; margin: 0;">Productivity Score</p>
+      <h3 style="font-size: 24px; margin: 5px 0;">${report.productivityScore}/100</h3>
+    </div>
+    <div style="background: linear-gradient(135deg, #ff8787, #e53935); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+      <p style="font-size: 12px; opacity: 0.9; margin: 0;">Current Streak</p>
+      <h3 style="font-size: 24px; margin: 5px 0;">🔥 ${report.currentStreak}</h3>
+    </div>
+    <div style="background: linear-gradient(135deg, #ffc107, #f57f17); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+      <p style="font-size: 12px; opacity: 0.9; margin: 0;">Avg. Session</p>
+      <h3 style="font-size: 24px; margin: 5px 0;">${report.avgSessionLength}m</h3>
+    </div>
+  </div>`;
+  
+  html += `<div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+    <h4 style="margin-bottom: 10px;">📊 Key Metrics</h4>
+    <p style="margin: 8px 0; font-size: 14px;"><strong>Sessions Completed:</strong> ${report.totalSessions}</p>
+    <p style="margin: 8px 0; font-size: 14px;"><strong>Tasks Completed:</strong> ${report.tasksCompleted}</p>
+    <p style="margin: 8px 0; font-size: 14px;"><strong>Weekly Average:</strong> ${report.weeklyAverage}m/day</p>
+    <p style="margin: 8px 0; font-size: 14px;"><strong>Best Day:</strong> ${report.bestDay.day} (${report.bestDay.minutes}m)</p>
+  </div>`;
+  
+  let motivationalMessage = "";
+  if (report.productivityScore >= 80) {
+    motivationalMessage = "👑 You're an elite studier! Keep crushing your goals!";
+  } else if (report.productivityScore >= 60) {
+    motivationalMessage = "🌟 Great progress! You're on your way to mastery!";
+  } else if (report.productivityScore >= 40) {
+    motivationalMessage = "💪 Good effort! Keep pushing to reach your potential!";
+  } else {
+    motivationalMessage = "🚀 Every journey starts with a single step. Keep going!";
+  }
+  
+  html += `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px;">
+    <p style="font-size: 14px; font-weight: bold;">${motivationalMessage}</p>
+  </div>`;
+  
+  document.getElementById("modalStatsTitle").innerText = "📊 Performance Report";
+  document.getElementById("modalStatsContent").innerHTML = html;
+  if (modal) {
+    modal.classList.add("show");
+  }
+}
+
+// ======================= MOTIVATIONAL & GAMIFICATION =======================
+
+function getDailyMotivation() {
+  let quotes = [
+    "Focus is the gateway to success. You've got this! 💪",
+    "Every minute counts. Keep that streak alive! 🔥",
+    "Your future self will thank you for studying today! 🌟",
+    "Small consistent efforts lead to big results! ✨",
+    "You're closer to your goals than you think! 🚀",
+    "Discipline is doing what you hate to do, but nonetheless doing it! 💯",
+    "The only way to do great work is to love what you study! ❤️",
+    "Your potential is endless. Go achieve it! 🎯",
+    "Today is the perfect day to build a better you! 🏆",
+    "Remember why you started. Keep pushing! 💥"
+  ];
+  
+  let today = new Date().getDate();
+  return quotes[today % quotes.length];
+}
+
+function showDailyMotivation() {
+  let message = getDailyMotivation();
+  showNotification(message, "success");
+}
+
+// ======================= KEYBOARD SHORTCUTS =======================
+
+function setupKeyboardShortcuts() {
+  document.addEventListener("keydown", function(e) {
+    // Alt+S: Start/Stop Timer
+    if (e.altKey && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      if (!timerRunning) {
+        startTimer();
+      } else {
+        stopTimer();
+      }
+    }
+    
+    // Alt+P: Pause/Resume
+    if (e.altKey && e.key.toLowerCase() === 'p') {
+      e.preventDefault();
+      if (timerRunning) pauseTimer();
+      else if (timerPaused) startTimer();
+    }
+    
+    // Alt+F: Toggle Focus Mode
+    if (e.altKey && e.key.toLowerCase() === 'f') {
+      e.preventDefault();
+      toggleFocusMode();
+    }
+    
+    // Alt+M: Toggle Music
+    if (e.altKey && e.key.toLowerCase() === 'm') {
+      e.preventDefault();
+      playYouTubeMusic();
+    }
+    
+    // Alt+D: Show Dashboard
+    if (e.altKey && e.key.toLowerCase() === 'd') {
+      e.preventDefault();
+      showPage("home");
+    }
+  });
+}
+
+// ======================= AUTO-SAVE FUNCTIONALITY =======================
+
+function enableAutoSave() {
+  setInterval(function() {
+    if (currentUser) {
+      localStorage.setItem("users", JSON.stringify(users));
+      console.log("✅ Data auto-saved at " + new Date().toLocaleTimeString());
+    }
+  }, 30000); // Save every 30 seconds
+}
+
+// ======================= ACHIEVEMENT BADGES & CERTIFICATES =======================
+
+function showAchievementBadge(achievementKey) {
+  let achievement = achievements[achievementKey];
+  let user = users[currentUser];
+  
+  // Update modal content
+  document.getElementById("badgeIcon").innerText = achievement.icon;
+  document.getElementById("badgeTitle").innerText = achievement.name;
+  document.getElementById("badgeDesc").innerText = achievement.description;
+  document.getElementById("badgeDate").innerText = new Date().toLocaleDateString();
+  document.getElementById("badgeProgress").innerText = "100%";
+  document.getElementById("badgeCategory").innerText = achievement.category.charAt(0).toUpperCase() + achievement.category.slice(1);
+  
+  // Show modal
+  let modal = document.getElementById("achievementBadgeModal");
+  modal.style.display = "flex";
+  
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 5000);
+  
+  // Play success sound
+  playNotificationSound("success");
+}
+
+function showAchievementNotification(title, desc) {
+  document.getElementById("notificationTitle").innerText = title;
+  document.getElementById("notificationDesc").innerText = desc;
+  
+  let notification = document.getElementById("achievementNotification");
+  notification.style.display = "block";
+  
+  // Auto-hide after 4 seconds
+  setTimeout(() => {
+    notification.style.display = "none";
+  }, 4000);
+}
+
+function checkAndUnlockAchievements() {
+  let user = users[currentUser];
+  let newAchievements = [];
+  
+  Object.entries(achievements).forEach(([key, achievement]) => {
+    if (!user.achievements[key] && achievement.condition(user)) {
+      user.achievements[key] = true;
+      newAchievements.push(key);
+      
+      // Show badge modal
+      setTimeout(() => {
+        showAchievementBadge(key);
+      }, 500);
+      
+      // Show notification
+      setTimeout(() => {
+        showAchievementNotification(
+          "🏆 Achievement Unlocked!",
+          achievement.name
+        );
+      }, 1000);
+    }
+  });
+  
+  if (newAchievements.length > 0) {
+    localStorage.setItem("users", JSON.stringify(users));
+    updateDashboard();
+    showNotification(`🎉 ${newAchievements.length} new achievement${newAchievements.length > 1 ? 's' : ''} unlocked!`, "success");
+  }
+}
+
+// ======================= ENHANCED ACHIEVEMENT DISPLAY =======================
+
+function showAchievementDetail(achievementKey) {
+  let achievement = achievements[achievementKey];
+  let user = users[currentUser];
+  let isUnlocked = achievement.condition(user);
+  
+  // Get current progress value based on achievement type
+  let currentValue = getCurrentValue(user, achievementKey);
+  
+  let progressPercent = Math.min((currentValue / achievement.target) * 100, 100);
+  let modal = document.getElementById("achievementModal");
+  
+  document.getElementById("modalAchievementTitle").innerText = achievement.name;
+  document.getElementById("modalAchievementIcon").innerText = achievement.icon;
+  document.getElementById("modalAchievementDesc").innerText = achievement.description;
+  document.getElementById("modalProgress").innerText = `${currentValue} / ${achievement.target}`;
+  document.getElementById("modalProgressBar").style.width = progressPercent + "%";
+  
+  let unlockStatus = isUnlocked 
+    ? `<span style="color: #51cf66; font-weight: bold;">✅ UNLOCKED</span>`
+    : `<span style="color: #999;">🔒 Locked - ${achievement.requirement}</span>`;
+  
+  document.getElementById("modalUnlockStatus").innerHTML = unlockStatus;
+  
+  if (modal) {
+    modal.classList.add("show");
+    modal.style.display = "flex";
+  }
+}
+
+// ======================= INITIALIZE PAGE =======================
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize the real blocking system
+  initializeRealBlocking();
+  
+  // Set up keyboard shortcuts
+  setupKeyboardShortcuts();
+  
+  // Enable auto-save
+  enableAutoSave();
+  
+  // Load user data on startup
+  if (localStorage.getItem("currentUser")) {
+    currentUser = localStorage.getItem("currentUser");
+    users = JSON.parse(localStorage.getItem("users")) || {};
+    showPage("home");
+    
+    // Show daily motivation
+    setTimeout(() => showDailyMotivation(), 2000);
+  }
+});
+
+</script>
+
+    <!-- ACHIEVEMENT BADGE MODAL -->
+    <div id="achievementBadgeModal" class="achievement-badge-modal" style="display: none;">
+      <div class="badge-certificate">
+        <div class="certificate-header">🏆 ACHIEVEMENT UNLOCKED!</div>
+        <div id="badgeIcon" class="certificate-icon">🎯</div>
+        <div id="badgeTitle" class="certificate-title">Achievement Title</div>
+        <div id="badgeDesc" class="certificate-desc">Achievement description</div>
+        <div class="certificate-stats">
+          <div class="certificate-stat">
+            <span>Unlocked:</span>
+            <span id="badgeDate">Today</span>
+          </div>
+          <div class="certificate-stat">
+            <span>Progress:</span>
+            <span id="badgeProgress">100%</span>
+          </div>
+          <div class="certificate-stat">
+            <span>Category:</span>
+            <span id="badgeCategory">Study</span>
+          </div>
+        </div>
+        <div class="certificate-footer">
+          Keep up the great work! Your dedication to productivity is inspiring.
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENT NOTIFICATION -->
+    <div id="achievementNotification" class="achievement-notification" style="display: none;">
+      <div class="achievement-notification-icon">🏆</div>
+      <div class="achievement-notification-title" id="notificationTitle">Achievement Unlocked!</div>
+      <div class="achievement-notification-desc" id="notificationDesc">You've earned a new achievement</div>
+    </div>
+
+</body>
+</html>
